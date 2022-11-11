@@ -1,0 +1,46 @@
+.ajaxupload {
+    vertical-align: top;
+}
+.ajaxupload-files{
+	padding:0px;
+	margin:5px 0px;
+}
+.ajaxupload-files a{
+	text-decoration: none;
+}
+.ajaxupload-files li{
+	display: inline-block;
+    float: left;
+    list-style-type: none;
+    margin:2px;
+}
+.ajaxupload-file{
+	position: relative;
+	padding: 0 6px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	border: 1px solid #CAD8F3;
+	background: #DEE7F8;
+	cursor: default;
+	padding-right: 15px;
+	height: 20px;
+	line-height: 20px;
+	margin-bottom: 2px;
+	white-space: nowrap;
+	list-style:none;
+}
+.ajaxupload-file .ajaxupload-file-del{
+	position: absolute;
+	right: 4px;
+	top: 5px;
+	display: block;
+	width: 7px;
+	height: 7px;
+	font-size: 1px;
+	background: url(../images/close.gif);
+	cursor: pointer;
+}
+.fileBtn{
+		
+}

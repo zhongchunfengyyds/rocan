@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tBusinessLogic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="email.bizx" detailDescription="" demonstration="" urls="" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0">
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" type="start">
+    <sourceConnections xsi:type="process:tLink" id="link0" name="link0" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>start0</sourceNode>
+      <targetNode>transactionbegin0</targetNode>
+    </sourceConnections>
+    <location x="30" y="148"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="process:tEnd" id="end0" name="结束" displayName="结束" type="end">
+    <targetConnections>link8</targetConnections>
+    <targetConnections>link7</targetConnections>
+    <location x="555" y="148"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end0label</nodeLabel>
+    <process:returns>
+      <process:return id="0" language="Boolean" name="result" type="query" valueType="Primitive">result</process:return>
+    </process:returns>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" displayName="label" nodeType="label">
+    <location x="32" y="184"/>
+    <figSize height="17" width="25"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end0label" name="label" displayName="label" nodeType="label">
+    <location x="557" y="184"/>
+    <figSize height="17" width="25"/>
+    <node>end0</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokePojo0" name="编辑邮件" displayName="CreateMessage" type="invoke" index="0" invokeType="invoke_pojo" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link1" name="link1" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>invokePojo0</sourceNode>
+      <targetNode>subprocess0</targetNode>
+    </sourceConnections>
+    <targetConnections>link4</targetConnections>
+    <location x="294" y="148"/>
+    <size height="28" width="22"/>
+    <nodeLabel>invokePojo0label</nodeLabel>
+    <process:pojo methodType="instance" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.itmp.basecommon.CommonUtil.CreateMessage</process:partner>
+      <process:instance instanceName=""/>
+    </process:pojo>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="title" type="query" value="java.lang.String" valueType="Java" pattern="reference">title</process:inputVariable>
+      <process:inputVariable id="1" name="content" type="query" value="java.lang.String" valueType="Java" pattern="reference">content</process:inputVariable>
+      <process:inputVariable id="2" name="user" type="query" value="java.lang.String" valueType="Java" pattern="reference">user</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables>
+      <process:outputVariable id="0" name="out0" type="query" value="com.cgn.components.coframe.mail.EmailMessage[]" valueType="Java">list</process:outputVariable>
+    </process:outputVariables>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokePojo0label" name="label" nodeType="label">
+    <location x="281" y="184"/>
+    <figSize height="17" width="49"/>
+    <node>invokePojo0</node>
+  </nodes>
+  <nodes xsi:type="process:tSubprocess" description="" id="subprocess0" name="逻辑流" displayName="Send" type="subprocess">
+    <sourceConnections xsi:type="process:tLink" id="link2" name="link2" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>subprocess0</sourceNode>
+      <targetNode>transactioncommit0</targetNode>
+      <process:transitionCondition/>
+    </sourceConnections>
+    <sourceConnections xsi:type="process:tLink" id="link3" name="link3" displayName="连接线" lineType="note" type="exception">
+      <sourceNode>subprocess0</sourceNode>
+      <targetNode>invokePojo2</targetNode>
+    </sourceConnections>
+    <targetConnections>link1</targetConnections>
+    <location x="378" y="148"/>
+    <size height="27" width="27"/>
+    <nodeLabel>subprocess0label</nodeLabel>
+    <process:flow index="0" transactionType="join" varArgs="false">
+      <process:partner type="literal">com.cgn.components.coframe.framework.MailManage.Send</process:partner>
+      <process:inputVariables>
+        <process:inputVariable id="0" name="list" type="query" value="com.cgn.components.coframe.mail.EmailMessage[]" valueType="Java" pattern="reference">list</process:inputVariable>
+      </process:inputVariables>
+      <process:outputVariables>
+        <process:outputVariable id="0" name="retcode" type="query" value="Boolean" valueType="Primitive">result</process:outputVariable>
+      </process:outputVariables>
+    </process:flow>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="subprocess0label" name="label" nodeType="label">
+    <location x="373" y="183"/>
+    <figSize height="17" width="37"/>
+    <node>subprocess0</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokePojo1" name="uba记录按钮" displayName="SaveButton" type="invoke" index="0" invokeType="invoke_pojo" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link4" name="link4" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>invokePojo1</sourceNode>
+      <targetNode>invokePojo0</targetNode>
+    </sourceConnections>
+    <targetConnections>link5</targetConnections>
+    <location x="195" y="148"/>
+    <size height="28" width="22"/>
+    <nodeLabel>invokePojo1label</nodeLabel>
+    <process:pojo methodType="instance" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.components.coframe.tools.UbaUtil.SaveButton</process:partner>
+      <process:instance instanceName=""/>
+    </process:pojo>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="operateDesc" type="literal" value="java.lang.String" valueType="Java" pattern="reference"></process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokePojo1label" name="label" nodeType="label">
+    <location x="171" y="184"/>
+    <figSize height="17" width="71"/>
+    <node>invokePojo1</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokePojo2" name="uba错误捕捉" displayName="SaveError" type="invoke" index="0" invokeType="invoke_pojo" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link6" name="link6" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>invokePojo2</sourceNode>
+      <targetNode>transactionrollback1</targetNode>
+    </sourceConnections>
+    <targetConnections>link3</targetConnections>
+    <location x="339" y="240"/>
+    <size height="28" width="22"/>
+    <nodeLabel>invokePojo2label</nodeLabel>
+    <process:pojo methodType="instance" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.components.coframe.tools.UbaUtil.SaveError</process:partner>
+      <process:instance instanceName=""/>
+    </process:pojo>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="ex" type="query" value="java.lang.Exception" valueType="Java" pattern="reference">_exception</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokePojo2label" name="label" nodeType="label">
+    <location x="315" y="276"/>
+    <figSize height="17" width="71"/>
+    <node>invokePojo2</node>
+  </nodes>
+  <nodes xsi:type="process:tTransactionBegin" id="transactionbegin0" name="事务开始" displayName="事务开始" type="transactionbegin">
+    <sourceConnections xsi:type="process:tLink" id="link5" name="link5" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>transactionbegin0</sourceNode>
+      <targetNode>invokePojo1</targetNode>
+    </sourceConnections>
+    <targetConnections>link0</targetConnections>
+    <location x="99" y="148"/>
+    <size height="28" width="28"/>
+    <nodeLabel>transactionbegin0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="transactionbegin0label" name="label" nodeType="label">
+    <location x="89" y="184"/>
+    <figSize height="17" width="49"/>
+    <node>transactionbegin0</node>
+  </nodes>
+  <nodes xsi:type="process:tTransactionRollback" id="transactionrollback1" name="事务回滚" displayName="事务回滚" type="transactionrollback">
+    <sourceConnections xsi:type="process:tLink" id="link7" name="link7" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>transactionrollback1</sourceNode>
+      <targetNode>end0</targetNode>
+    </sourceConnections>
+    <targetConnections>link6</targetConnections>
+    <location x="449" y="240"/>
+    <size height="28" width="28"/>
+    <nodeLabel>transactionrollback1label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="transactionrollback1label" name="label" nodeType="label">
+    <location x="439" y="276"/>
+    <figSize height="17" width="49"/>
+    <node>transactionrollback1</node>
+  </nodes>
+  <nodes xsi:type="process:tTransactionCommit" id="transactioncommit0" name="事务提交" displayName="事务提交" type="transactioncommit">
+    <sourceConnections xsi:type="process:tLink" id="link8" name="link8" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>transactioncommit0</sourceNode>
+      <targetNode>end0</targetNode>
+    </sourceConnections>
+    <targetConnections>link2</targetConnections>
+    <location x="476" y="148"/>
+    <size height="28" width="28"/>
+    <nodeLabel>transactioncommit0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="transactioncommit0label" name="label" nodeType="label">
+    <location x="466" y="184"/>
+    <figSize height="17" width="49"/>
+    <node>transactioncommit0</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="swh" createTime="2019-12-01 13:20:45" date="2019-12-01Z" description="定时任务邮件发送" name="email" version="7.0.0.0"/>
+  <process:variables/>
+  <process:inputs varArgs="false">
+    <process:input description="标题" isArray="false" name="title" primitiveType="String"/>
+    <process:input description="内容" isArray="false" name="content" primitiveType="String"/>
+    <process:input description="用户" isArray="false" name="user" primitiveType="String"/>
+  </process:inputs>
+  <process:outputs>
+    <process:output description="" isArray="false" name="result" primitiveType="Boolean"/>
+  </process:outputs>
+  <process:extAttribute1>public</process:extAttribute1>
+  <process:transactionType>true</process:transactionType>
+</process:tBusinessLogic>
