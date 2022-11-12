@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { inflate } from 'zlib';
 
 interface file {
     name: string;
@@ -8,63 +9,62 @@ interface tags {
     filename: string;
     filepath: string;
 }
-export let changeNum = 0
-export function replaceFile(file: file) {
-    const data = fs.readFileSync(file.path, 'utf-8')
+export function replaceFile(file: file): boolean {
+    let data = fs.readFileSync(file.path, 'utf-8')
+    const inputReg = /<input.*?\/>/gs
+    let inputArr = data.match(inputReg) || []
     // 情况一 input 上面带着 uploadUrl
-    const reg =
-        /<input[\W\w]*?uploadUrl="\/itmp\/com.cgn.itmp.basecommon.FileComp.selectFile.biz.ext.[\W\w]*?<\/tr>/g
-    let replaceStr = data.match(reg) || []
-    if (replaceStr.length) {
-        //  获取字段名称
-        const reg2 = /id="([\W\w]*?)"/g
-        const reg3 = /name="([\W\w]*?)"/g
-        const name = replaceStr[0].matchAll(reg3)
-        const value = replaceStr[0].matchAll(reg2)
-        const nameArr = [...name].map((item) => item[1])
-        const valueArr = [...value].map((item) => item[1])
-
-        let obj: tags = {
-            filename: '',
-            filepath: '',
+    const regUploadUrl =
+        /<input.*?cgn.itmp.basecommon.FileComp.selectFile.biz.e.*?<\/>/gs
+    let inputUploadArr: string[] = []
+    inputArr.forEach((input) => {
+        if (regUploadUrl.test(input)) {
+            inputUploadArr.push(input)
         }
-        nameArr.forEach((item, index) => {
-            console.log(item, valueArr[index])
-            obj[item as keyof tags] = valueArr[index]
+    })
+    if (inputUploadArr.length) {
+        inputUploadArr.forEach((uploadUrl) => {
+            //  获取 inputUploadArr 中的 id
+            const regId = /id=".*?"/
+            const id = uploadUrl.match(regId)![0]
+            data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" `)
         })
-        let newData = data.replace(reg,
-            `
-            <input type="file" id="file" name="file" multiple onchange="uploadFile(event)" />
-            <input class="nui-hidden" id="${obj.filepath}" name="filepath"/>
-            <input class="nui-hidden" id="${obj.filename}" name="filename"/>
-            </tr>
-             `)
-        newData = newData.replace(/<\/body>/g, `
-         <script>
-         function uploadFile (e) {
-            let  xhr = new XMLHttpRequest();
-            let  fd = new FormData();
-            fd.append('file', e.target.files[0]);
-            xhr.open('POST', '/itmp/coframe/framework/dzqm/uploadbd.jsp', true);
-            xhr.send(fd);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    let  data = JSON.parse(xhr.responseText);
-                    console.log(data);
-                    if (data.code == '1') {
-                        nui.get("fname").setValue(data.list[0].name);
-						nui.get("fpath").setValue(data.list[0].uri);
-                    } else {
-                        nui.alert(data.message);
+        data = data.replace(/<\/body>/g, `
+             <script>
+             function uploadFile (e, id) {
+                let  xhr = new XMLHttpRequest();
+                let  fd = new FormData();
+                fd.append('file', e.target.files[0]);
+                xhr.open('POST', '/itmp/coframe/framework/dzqm/uploadbd.jsp', true);
+                xhr.send(fd);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let  data = JSON.parse(xhr.responseText);
+                        if (data.code == '1') {
+                            onUploadSuccess&&onUploadSuccess({
+                                file: {
+                                    name: data.list[0].name
+                                },
+                                sender:{
+                                    id: id
+                                }
+                                serverData: JSON.stringify({
+                                    ret: {
+                                        filePath: data.list[0].uri
+                                    }
+                                })
+                            });
+                        } else {
+                            nui.alert(data.message);
+                        }
                     }
-                }
-            };
-        }
-         </script>
-         </body>
-         `)
-        changeNum++
-        // 保存
-        fs.writeFileSync(file.path + '.jsp', newData)
+                };
+            }
+             </script>
+             </body>
+             `)
+        return true
+    } else {
+        return false
     }
 }

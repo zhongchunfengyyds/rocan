@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import { replaceFile, changeNum } from './replaceFile'
+import { replaceFile } from './replaceFile'
 interface file {
     name: string;
     path: string;
@@ -42,9 +42,11 @@ console.log('一共寻找到' + fileArr.length + '个文件')
 // }
 
 const handlerArr: file[] = []
-
 fileArr.forEach((file) => {
-    replaceFile(file)
+    console.log(file.name + ' loading...');
+    if (replaceFile(file)) {
+        handlerArr.push(file)
+    }
 })
-
-console.log('系统运行结束，一共' + handlerArr.length + '个文件','修改了' + changeNum + '个文件')
+console.log(JSON.stringify(handlerArr));
+console.log('系统运行结束，一共' + handlerArr.length + '个文件', '修改了' + handlerArr.length + '个文件')
