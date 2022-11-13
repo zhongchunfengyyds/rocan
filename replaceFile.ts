@@ -14,11 +14,9 @@ export function replaceFile(file: file): boolean {
     const inputReg = /<input.*?\/>/gs
     let inputArr = data.match(inputReg) || []
     // 情况一 input 上面带着 uploadUrl
-    const regUploadUrl =
-        /<input.*?cgn.itmp.basecommon.FileComp.selectFile.biz.e.*?<\/>/gs
     let inputUploadArr: string[] = []
     inputArr.forEach((input) => {
-        if (regUploadUrl.test(input)) {
+        if (input.indexOf('basecommon.FileComp.selectFile.biz') > -1) {
             inputUploadArr.push(input)
         }
     })
@@ -26,8 +24,8 @@ export function replaceFile(file: file): boolean {
         inputUploadArr.forEach((uploadUrl) => {
             //  获取 inputUploadArr 中的 id
             const regId = /id=".*?"/
-            const id = uploadUrl.match(regId)![0]
-            data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" `)
+            const id = uploadUrl.match(regId)![0].replace(/id="/, '').replace(/"/, '')
+            data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" /> `)
         })
         data = data.replace(/<\/body>/g, `
              <script>
@@ -63,6 +61,7 @@ export function replaceFile(file: file): boolean {
              </script>
              </body>
              `)
+        fs.writeFileSync(file.path, data)
         return true
     } else {
         return false

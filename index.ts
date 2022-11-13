@@ -29,7 +29,6 @@ console.log('系统开始运行')
 
 findFile('./data')
 
-console.log('一共寻找到' + fileArr.length + '个文件')
 // 修改文件内容
 // const replaceFile = (file: file) => {
 //     const data = fs.readFileSync(file.path, 'utf-8')
@@ -49,4 +48,4 @@ fileArr.forEach((file) => {
     }
 })
 console.log(JSON.stringify(handlerArr));
-console.log('系统运行结束，一共' + handlerArr.length + '个文件', '修改了' + handlerArr.length + '个文件')
+console.log('系统运行结束，一共' + fileArr.length + '个文件', '修改了' + handlerArr.length + '个文件')
