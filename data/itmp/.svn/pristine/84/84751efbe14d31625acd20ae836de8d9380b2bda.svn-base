@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.primeton.studio.component.core.EosComponentTypeInfo>
+  <description>
+    <version>6.0</version>
+    <displayName>经验反馈和良好实践管理</displayName>
+    <author>rocan</author>
+    <createdTime>2019-04-18 19:30:09</createdTime>
+    <description>经验反馈和良好实践管理</description>
+    <detailDescription></detailDescription>
+    <demo></demo>
+    <links></links>
+  </description>
+  <serviceReferences/>
+</com.primeton.studio.component.core.EosComponentTypeInfo>

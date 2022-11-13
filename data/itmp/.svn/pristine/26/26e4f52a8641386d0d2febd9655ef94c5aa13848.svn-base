@@ -1,0 +1,87 @@
+	*{
+		margin:0;
+		padding:0;
+		box-sizing:border-box;
+	}
+	.bs-docs-section{
+		background-color:transparent;
+	}
+	.select-people-left,.select-people-right{
+		float:left;
+	}
+	.select-people-left{
+		width:220px;
+		padding-right:15px;
+		background-color:#f5f5f5;
+		min-height:339px;
+	}
+	.select-people-box{
+		overflow:hidden;
+		position:relative;
+	}
+	.bs-docs-section {
+	    margin-bottom: 0;
+	    padding: 0px;
+	}
+	element.style{
+	    display: block;
+	    padding-right: 0px;
+	    position: relative;
+	}
+	.modal-dialog {
+	    width: 600px;
+	    margin: 0px 0px;
+	}
+	
+	.modal-content {
+		border:0px;
+	}
+	.mini-listbox-border {
+	    border: 0px solid #999999;
+	    overflow: hidden;
+	    border-spacing: 1px;
+	}
+	.mini-listbox-view {
+		padding-left:6px;
+	}
+	.mini-listbox-item-selected {
+	    background: #0069ac;
+	    color: #fff;
+	}
+	.mini-listbox-item-hover{
+		background: #0099E3;
+	    color: #fff;
+	}
+	.mini-listbox td {
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    word-break: keep-all;
+	    overflow: hidden;
+	    line-height: 22px;
+	    cursor: default;
+	    padding-left: 4px;
+	    padding-right: 2px;
+	    font-size: 14px;
+	    font-family: "microsoft yahei",arial;
+	    text-align: left;
+	}
+	.modal-content-single-emp{
+		width:300px;
+		position: relative;
+	}
+	.form-group-single-emp{
+		margin-bottom: 0px;
+	}
+	.select-people-box-single-emp{
+		padding-bottom:5px;
+		padding-top:5px;
+		border:1px solid grey; 
+		border-top:0px;
+		display:none;
+		width:300px;
+		height:230px;
+		overflow: auto;
+		background-color: white;
+		position: absolute;
+		z-index: 2;
+	}

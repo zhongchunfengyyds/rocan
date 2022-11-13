@@ -1,0 +1,178 @@
+table {
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
+	font-family: Microsoft YaHei !important;
+}
+
+table td,table th {
+	/* border: 1px solid #cad9ea; */
+	border: 1px solid #cad9ea;
+	color: #666;
+	/*      height: 30px; */
+	text-align: left;
+}
+
+table thead th {
+	/* background-color: #CCE8EB; */
+	width: 100px;
+}
+/*  table tr:nth-child(odd)
+ {
+     background: #fff;
+ }
+ table tr:nth-child(even)
+ {
+     background: #F5FAFA;
+ } */
+.form_label {
+	background: #F5FAFA;
+	border-right: 1px solid #cad9ea;
+	text-align: center;
+}
+
+.mini-textbox-border {
+	border: 1px solid #f1f1f1;
+}
+
+body .mini-textbox-focus .mini-textbox-border {
+	border-color: #60b1e3;
+}
+
+body .mini-textbox,textarea {
+	text-align: left !important;
+}
+
+.mini-calendar-daysheader td,body .mini-calendar td {
+	border: none !important;
+}
+
+.mini-calendar-tadayButton,.mini-calendar-clearButton {
+	border-color: #004a86;
+	background: #004a86;
+	color: #fff;
+	font-family: "微软雅黑";
+}
+
+.mini-calendar .mini-calendar-today {
+	border: 1px solid #C00000;
+}
+
+body .mini-calendar td {
+	height: 14px;
+}
+
+.mini-calendar .mini-calendar-selected,.mini-calendar .mini-calendar-date:hover
+	{
+	background-color: #004a86;
+	border-color: #004a86;
+	color: #fff;
+}
+
+/* 新增表格 修改*/
+.mini-panel-header {
+/* 	background: none !important; */
+}
+
+.mini-window .mini-panel-header {
+/* 	background: none !important; */
+}
+
+.nui-form-table {
+	background: none !important;
+}
+
+.mini-toolbar tbody td {
+	background-color: white !important;
+}
+
+table td a {
+	word-break: break-all !important;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.mini-button {
+	background: none !important;
+	background-color: #60b1e3 !important;
+	border-radius: 4px;
+	color: white;
+}
+
+.mini-grid-columns-view {
+	background: none !important;
+	background-color: #d2d2d2 !important;
+}
+
+[id^="uploadform"] {
+	cursor:pointer;
+	width: 50px; 
+	min-width:50px;
+	text-align: center;
+/* 	background: #fff; */
+	position: relative;
+	overflow: hidden;
+	border-radius: 2px;
+	height: 16px;
+    line-height: 16px;
+    
+    color: #201F35;
+    border: 1px solid #A9ACB5;
+    font-family: Tahoma, Verdana;
+    background: #EBEDF2 url(images/buttonedit/button.png) repeat-x 0 0;
+}
+[id^="uploadform"]:after{
+	content: '\6d4f\89c8...';
+}
+
+[id^="uploadform"] input {
+	width: 50px; 
+	min-width:50px;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+/* alert文本自动折行*/
+.mini-messagebox-content-text 
+    {
+        white-space:pre-wrap;
+        white-space:break-word;
+        word-break:break-all; /*支持IE，chrome，FF不支持*/
+        word-wrap:break-word;/*支持IE，chrome，FF*/
+    }
+
+ /* 表单页面变为只读标签 */
+ .asLabel .mini-textbox-border,
+ .asLabel .mini-textbox-input,
+ .asLabel .mini-buttonedit-border,
+ .asLabel .mini-buttonedit-input,
+ .asLabel .mini-textboxlist-border
+ {
+     border:0;background:none;cursor:default;
+ }
+ .asLabel .mini-buttonedit-button,
+ .asLabel .mini-textboxlist-close
+ {
+     display:none;
+ }
+ .asLabel .mini-textboxlist-item
+ {
+     padding-right:8px;
+ }    
+    
+.progress {
+     height: 5px;
+     width: 100%;
+     position: relative;
+     border-radius:5px;
+ }
+ 
+ .progress .progress-item {
+     height: 5px;
+     background: chartreuse;
+     border-radius:5px;
+ }
+    

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:xuzhikang -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+
+	<insert id="insertByExcel" parameterClass="java.util.HashMap" >
+	 insert into T_CGN_DGGL_CXGL 
+	 <dynamic prepend=" ">  
+                <isNotEmpty property="UUID" prepend=",">UUID</isNotEmpty>  
+                <isNotEmpty property="DZID" prepend=",">DZID</isNotEmpty>  
+                <isNotEmpty property="JZID" prepend=",">JZID</isNotEmpty>  
+                <isNotEmpty property="NAME" prepend=",">NAME</isNotEmpty>  
+                <isNotEmpty property="LX" prepend=",">LX</isNotEmpty>  
+                <isNotEmpty property="JM" prepend=",">JM</isNotEmpty>  
+                <isNotEmpty property="CXBM" prepend=",">CXBM</isNotEmpty>  
+                <isNotEmpty property="BBH" prepend=",">BBH</isNotEmpty>
+                ISDELETE          
+    </dynamic>  
+        ) VALUES ( 
+    <dynamic prepend=" ">  
+                <isNotEmpty property="UUID" prepend=",">#UUID#</isNotEmpty>  
+                <isNotEmpty property="DZID" prepend=",">#DZID#</isNotEmpty>  
+                <isNotEmpty property="JZID" prepend=",">#JZID#</isNotEmpty>  
+                <isNotEmpty property="NAME" prepend=",">#NAME#</isNotEmpty>  
+                <isNotEmpty property="LX" prepend=",">#LX#</isNotEmpty>  
+                <isNotEmpty property="JM" prepend=",">#JM#</isNotEmpty>  
+                <isNotEmpty property="CXBM" prepend=",">#CXBM#</isNotEmpty>  
+                <isNotEmpty property="BBH" prepend=",">#BBH#</isNotEmpty>
+                '0'  
+    </dynamic>  
+        ) 
+    </insert>
+    <select id="getJmCount" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+    	select count(1) count from T_CGN_DGGL_CXGL where JZID LIKE '%' + #JZID# +  '%' and JM=#JM# and isdelete='0'
+    </select>
+    
+    
+      <select id="getCxbmCount" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+    	select count(1) count  from T_CGN_DGGL_CKTLGL tl where tl.JZID=#JZID#  and tl.CKTLBH=#cktlbh# and isdelete='0'
+    </select>
+     <select id="getZyqdCount" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+    	select count(1) count 
+    	 from T_CGN_DGGL_ZYGJQD 
+    	  where isdelete='0'
+    	  
+    	<isNotNull property="jz">
+             and jz = #jz#
+       </isNotNull>
+        <isNotNull property="istxh">
+             and istxh = #istxh#
+       </isNotNull>
+       
+    </select>
+    
+    <select id="getJznamesByJzid" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+    
+       select name    
+       from TD_DXGL_JIZUDICT     
+       where ISDELETE != '1'
+      and id 
+    in
+      <iterate open="(" close=")" conjunction=",">
+			#paramList[]#
+	</iterate>
+    
+    </select>
+    
+</sqlMap>

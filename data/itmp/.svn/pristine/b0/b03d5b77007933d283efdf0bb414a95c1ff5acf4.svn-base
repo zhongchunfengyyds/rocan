@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:wujie -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+
+	<!--获取大修编号-->
+	<select id="getnumbyoverhaulsequence" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT DISTINCT overhaulsequence as id,overhaulsequence as name FROM T_INSPECTIONRESULTSMANAGEMENT WHERE jd=#base# and jz=#crew# and isdel = 0
+	</select>
+
+	<!--获取设备树-->
+	<select id="getequipmenttree" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT
+			t.DEVICENAME DEVICENAME,
+			t.PARTNAME PARTNAME,
+			t.DETECTEDSITE DETECTEDSITE,
+			ISNULL( ti.INSPECTIONMETHOD, '暂无检查方法' ) INSPECTIONMETHOD 
+		FROM
+			T_INSPECOMPONENTMENUTREE t
+			LEFT JOIN ( SELECT equipmentname, componentname, checklocation, INSPECTIONMETHOD FROM T_INSPECTIONRESULTSMANAGEMENT WHERE isdel = 0 AND jd = #base# AND jz = #crew# ) ti ON t.devicename = ti.equipmentname 
+			AND t.partname = ti.componentname 
+			AND t.detectedsite = ti.checklocation 
+		WHERE
+			t.isdel = 0 
+			AND t.jd = #base# 
+			AND t.jz = #crew# 
+		ORDER BY
+			t.orderno
+	</select>
+	
+	<!--获取检查结果-->
+	<select id="getcheckedresult" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT
+			equipmentname,
+			componentname,
+			checklocation,
+			inspectionmethod,
+			overhaulsequence,
+			examinationresult
+			FROM
+				T_INSPECTIONRESULTSMANAGEMENT 
+				where equipmentname = #equipmentname# 
+				<![CDATA[ $componentList$ ]]>
+				<![CDATA[ $checklocationList$ ]]>
+				<![CDATA[ $methodList$ ]]>
+				<![CDATA[ $overhaulsequenceList$ ]]>
+				<![CDATA[ $base$ ]]>
+				<![CDATA[ $crew$ ]]>
+			ORDER BY
+				equipmentname,componentname,checklocation,inspectionmethod
+				
+	</select>
+
+</sqlMap>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tPageFlow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="fdrceditflow" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0" state="stateless">
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" collapsed="false" type="start">
+    <sourceConnections xsi:type="process:tActionLink" description="" id="link1" name="link1" displayName="link0" lineType="reference" isDefault="true" type="action" actionName="action0" dataConvertClass="">
+      <sourceNode>start0</sourceNode>
+      <targetNode>invokeSpring0</targetNode>
+      <process:validateRules errorPage="" onError="default"/>
+      <process:inputParameters>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="fieldName" primitiveType="String"/>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="fieldValue" primitiveType="String"/>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="editfieldName" primitiveType="String"/>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="editfieldValue" primitiveType="String"/>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="entity" primitiveType="String"/>
+        <process:parameter description="" historyStateLocation="client" isArray="false" name="editentity" primitiveType="String"/>
+      </process:inputParameters>
+    </sourceConnections>
+    <location x="120" y="170"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" nodeType="label">
+    <location x="122" y="206"/>
+    <figSize height="17" width="25"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="process:tEnd" description="" id="end1" name="结束1" displayName="结束" collapsed="false" type="end" contextPath="" method="forward" uri="/outline/Staturory/Daily/editview.jsp">
+    <targetConnections>link0</targetConnections>
+    <location x="420" y="170"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end1label</nodeLabel>
+    <process:inputVariables/>
+    <process:returns/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end1label" name="label" nodeType="label">
+    <location x="418" y="206"/>
+    <figSize height="17" width="32"/>
+    <node>end1</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokeSpring0" name="spring调用" displayName="getEditViewInforMation" collapsed="false" type="invoke" index="0" invokeType="invoke_spring" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link0" name="link0" displayName="link1" isDefault="true" type="transition">
+      <sourceNode>invokeSpring0</sourceNode>
+      <targetNode>end1</targetNode>
+    </sourceConnections>
+    <targetConnections>link1</targetConnections>
+    <location x="260" y="170"/>
+    <size height="28" width="28"/>
+    <nodeLabel>invokeSpring0label</nodeLabel>
+    <process:spring methodType="beanID" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.itmp.outlineandplan.outline.ExecutiveEntriesServiceImpl.getEditViewInforMation</process:partner>
+      <process:instance instanceName="ExecutiveEntriesServiceImplBean"/>
+    </process:spring>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="fieldName" type="query" value="java.lang.String" valueType="Java" pattern="reference">fieldName</process:inputVariable>
+      <process:inputVariable id="1" name="fieldValue" type="query" value="java.lang.String" valueType="Java" pattern="reference">fieldValue</process:inputVariable>
+      <process:inputVariable id="2" name="editfieldName" type="query" value="java.lang.String" valueType="Java" pattern="reference">editfieldName</process:inputVariable>
+      <process:inputVariable id="3" name="editfieldValue" type="query" value="java.lang.String" valueType="Java" pattern="reference">editfieldValue</process:inputVariable>
+      <process:inputVariable id="4" name="entity" type="query" value="java.lang.String" valueType="Java" pattern="reference">entity</process:inputVariable>
+      <process:inputVariable id="5" name="editentity" type="query" value="java.lang.String" valueType="Java" pattern="reference">editentity</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables>
+      <process:outputVariable id="0" name="out0" type="query" value="java.util.Map&lt;java.lang.String,commonj.sdo.DataObject>" valueType="Java">record</process:outputVariable>
+    </process:outputVariables>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokeSpring0label" name="label" nodeType="label">
+    <location x="243" y="206"/>
+    <figSize height="17" width="62"/>
+    <node>invokeSpring0</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="Sun" createTime="2019-03-04 11:53:50" date="2019-03-04Z" description="法定日常页面流" name="法定日常页面流" version="7.0.0.0"/>
+  <process:variables>
+    <process:variable anyType="java.util.HashMap" description="" historyStateLocation="client" isArray="false" name="record"/>
+  </process:variables>
+</process:tPageFlow>

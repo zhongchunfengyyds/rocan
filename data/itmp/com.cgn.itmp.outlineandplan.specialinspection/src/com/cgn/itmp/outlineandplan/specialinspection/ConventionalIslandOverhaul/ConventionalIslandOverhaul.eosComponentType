@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.primeton.studio.component.core.EosComponentTypeInfo>
+  <description>
+    <version>6.0</version>
+    <displayName>专用检查计划常规岛大修执行条目</displayName>
+    <author>rocan</author>
+    <createdTime>2019-04-19 01:23:28</createdTime>
+    <description>专用检查计划常规岛大修执行条目</description>
+    <detailDescription></detailDescription>
+    <demo></demo>
+    <links></links>
+  </description>
+  <serviceReferences/>
+</com.primeton.studio.component.core.EosComponentTypeInfo>

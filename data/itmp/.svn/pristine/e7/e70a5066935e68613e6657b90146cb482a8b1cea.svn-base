@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tBusinessLogic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="userPasswordChange.bizx" detailDescription="" demonstration="" urls="" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0">
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" type="start">
+    <sourceConnections xsi:type="process:tLink" id="link1" name="link1" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>start0</sourceNode>
+      <targetNode>invokePojo0</targetNode>
+    </sourceConnections>
+    <location x="100" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="process:tEnd" id="end0" name="结束" displayName="结束" type="end">
+    <targetConnections>link3</targetConnections>
+    <location x="400" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end0label</nodeLabel>
+    <process:returns/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" displayName="label" nodeType="label">
+    <location x="102" y="186"/>
+    <figSize height="17" width="25"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end0label" name="label" displayName="label" nodeType="label">
+    <location x="402" y="186"/>
+    <figSize height="17" width="25"/>
+    <node>end0</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokePojo0" name="获取自定义服务地址" displayName="获取自定义服务地址" collapsed="false" type="invoke" index="0" invokeType="invoke_pojo" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link2" name="link2" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>invokePojo0</sourceNode>
+      <targetNode>webService0</targetNode>
+    </sourceConnections>
+    <targetConnections>link1</targetConnections>
+    <location x="202" y="150"/>
+    <size height="28" width="22"/>
+    <nodeLabel>invokePojo0label</nodeLabel>
+    <process:pojo methodType="instance" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.eos.foundation.eoscommon.ConfigurationUtil.getUserConfigSingleValue</process:partner>
+      <process:instance instanceName=""/>
+    </process:pojo>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="module" type="literal" value="java.lang.String" valueType="Java" pattern="reference">auth</process:inputVariable>
+      <process:inputVariable id="1" name="group" type="literal" value="java.lang.String" valueType="Java" pattern="reference">service</process:inputVariable>
+      <process:inputVariable id="2" name="key" type="literal" value="java.lang.String" valueType="Java" pattern="reference">EmpSourceService</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables>
+      <process:outputVariable id="0" name="out0" type="query" value="java.lang.String" valueType="Java">serverUrl</process:outputVariable>
+    </process:outputVariables>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokePojo0label" name="label" nodeType="label">
+    <location x="159" y="186"/>
+    <figSize height="17" width="109"/>
+    <node>invokePojo0</node>
+  </nodes>
+  <nodes xsi:type="process:tInvokeWebservice" description="" id="webService0" name="修改密码" displayName="Web Service" type="webService" invokeType="request/response" locationURL="serverUrl" operation="userPasswordChangeNew" port="EmpSourcePort" service="EmpSourceService" variableUri="true" wsdlLocation="com/cgn/components/coframe/EmpSource.wsdl">
+    <sourceConnections xsi:type="process:tLink" id="link3" name="link3" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>webService0</sourceNode>
+      <targetNode>end0</targetNode>
+    </sourceConnections>
+    <targetConnections>link2</targetConnections>
+    <location x="299" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>webService0label</nodeLabel>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="in0" type="query" value="String" valueType="Primitive" pattern="reference">userid</process:inputVariable>
+      <process:inputVariable id="1" name="in1" type="query" value="String" valueType="Primitive" pattern="reference">oldpassword</process:inputVariable>
+      <process:inputVariable id="2" name="in2" type="query" value="String" valueType="Primitive" pattern="reference">newpassword</process:inputVariable>
+    </process:inputVariables>
+    <process:inputHead/>
+    <process:inputAttachments/>
+    <process:outputAttachments/>
+    <process:outputHead/>
+    <process:outputVariables>
+      <process:outputVariable id="0" name="out1" type="query" value="http://data.interfaces.coframe.components.gocom.org.DataStructure_FLagMsgExt" valueType="DataObject">result</process:outputVariable>
+    </process:outputVariables>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="webService0label" name="label" nodeType="label">
+    <location x="289" y="186"/>
+    <figSize height="17" width="49"/>
+    <node>webService0</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="Administrator" createTime="2019-03-12 16:11:47" date="2019-03-12Z" description="修改密码" name="修改密码" version="7.0.0.0"/>
+  <process:variables/>
+  <process:inputs varArgs="false">
+    <process:input description="" isArray="false" name="userid" primitiveType="String"/>
+    <process:input description="" isArray="false" name="oldpassword" primitiveType="String"/>
+    <process:input description="" isArray="false" name="newpassword" primitiveType="String"/>
+  </process:inputs>
+  <process:outputs/>
+  <process:extAttribute1>public</process:extAttribute1>
+  <process:transactionType>true</process:transactionType>
+</process:tBusinessLogic>

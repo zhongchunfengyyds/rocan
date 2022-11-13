@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tPageFlow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="WeldingApply.flowx" detailDescription="" demonstration="" urls="" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0" state="stateless">
+  <nodes xsi:type="process:tView" description="" id="view0" name="跳转页面" displayName="f:showPage" collapsed="false" type="view" contextPath="" method="forward" uri="f:showPage" variableUri="true">
+    <sourceConnections xsi:type="process:tActionLink" id="link0" name="link0" displayName="link1" lineType="reference" isDefault="true" type="action" actionName="action1">
+      <sourceNode>view0</sourceNode>
+      <targetNode>end1</targetNode>
+    </sourceConnections>
+    <targetConnections>link1</targetConnections>
+    <location x="350" y="190"/>
+    <size height="28" width="22"/>
+    <nodeLabel>view0label</nodeLabel>
+    <process:inputParameters/>
+    <process:outputVariables/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="view0label" name="label" nodeType="label">
+    <location x="337" y="226"/>
+    <figSize height="17" width="49"/>
+    <node>view0</node>
+  </nodes>
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" collapsed="false" type="start">
+    <sourceConnections xsi:type="process:tActionLink" id="link1" name="link1" displayName="link3" lineType="reference" isDefault="true" type="action" actionName="action0">
+      <sourceNode>start0</sourceNode>
+      <targetNode>view0</targetNode>
+    </sourceConnections>
+    <location x="140" y="190"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" nodeType="label">
+    <location x="142" y="226"/>
+    <figSize height="17" width="25"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="process:tEnd" id="end1" name="结束1" displayName="结束" collapsed="false" type="end">
+    <targetConnections>link0</targetConnections>
+    <location x="490" y="190"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end1label</nodeLabel>
+    <process:inputVariables/>
+    <process:returns/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end1label" name="label" nodeType="label">
+    <location x="488" y="226"/>
+    <figSize height="17" width="32"/>
+    <node>end1</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="swh" createTime="2019-12-02 12:35:41" date="2019-12-02Z" description="" name="WeldingApply" version="7.0.0.0"/>
+  <process:variables>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="showPage" primitiveType="String"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="modelFlag" primitiveType="String"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="workItemId" primitiveType="String"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="processInstId" primitiveType="String"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="editTable" primitiveType="String"/>
+    <process:variable anyType="commonj.sdo.DataObject" description="" historyStateLocation="client" isArray="false" name="data"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="backid" primitiveType="String"/>
+  </process:variables>
+</process:tPageFlow>

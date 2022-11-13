@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:swh -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    
+    <select id="getfilepathname" parameterClass="java.lang.String" resultClass="java.util.HashMap" >
+		 SELECT FILE_REAL_NAME name,FILE_PATH path FROM T_COMMON_FILEUPLOAD WHERE FILE_ID = #id#
+	</select>
+	<select id="getlist"  parameterClass="java.util.List"  resultClass="commonj.sdo.DataObject">
+		 SELECT name,operatingnumber,job,authority,items,initial,validity,review,cernumber,projcode,validdate,
+		 office,uuid FROM WELDING_WELDER left join WELDING_CERTIFICATE on welderid=operatingnumber 
+		 where operatingnumber in
+		 <iterate open="(" close=")" conjunction=",">
+		    #operatingnumbers[]#
+        </iterate> 
+		 
+	</select>
+	<select id="getwelders"  parameterClass="java.util.HashMap"  resultClass="com.cgn.itmp.weldingmanagement.Welder.Welder">
+		 SELECT uuid,name,operatingnumber,job,authority,items,initial,validity,review FROM WELDING_WELDER 
+		 where isdel='0' 
+		 <isNotNull prepend =" AND "  property="jd">
+			  jd = #jd#			 
+        </isNotNull>
+		  <isNotNull prepend =" AND "  property="operatingnumber">
+			  uuid in
+			 <iterate open="(" close=")" conjunction=","  property="operatingnumber">
+			    #operatingnumber[]#
+	        </iterate> 
+        </isNotNull>
+	</select>
+	<select id="getwelderall"  parameterClass="java.util.HashMap"  resultClass="com.cgn.itmp.weldingmanagement.Welder.Welder">
+		 select * from WELDING_WELDER
+		 where  isdel='0'
+		 
+		 <isNotNull prepend =" AND "  property="operatingnumber">
+		 operatingnumber not in
+			 <iterate open="(" close=")" conjunction="," property="operatingnumber">
+			    #operatingnumber[]#
+	        </iterate>
+		</isNotNull>
+		 <isNotNull prepend =" AND " property="name">
+              name LIKE '%' + #name# + '%'
+       </isNotNull>
+       <isNotNull prepend =" AND " property="jd">
+               JD = #jd#
+       </isNotNull>
+       <isNotNull prepend =" AND " property="job">
+              job LIKE '%' + #job# + '%'
+       </isNotNull>
+        <isNotNull prepend =" AND " property="employeenumber">
+              employeenumber LIKE '%' + #employeenumber# + '%'
+       </isNotNull>
+       <isNotNull prepend =" AND " property="company">
+              company LIKE '%' + #company# + '%'
+       </isNotNull>
+	</select>
+	
+	
+	
+	 	<select id="getrealNumber" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    	SELECT name,uuid,operatingnumber as number FROM WELDING_WELDER where isdel='0' 
+    	<isNotNull prepend =" AND " property="Identification">
+	    	 operatingnumber in 
+	    	<iterate property="Identification" open="(" close=")" conjunction=",">
+	    	#Identification[]#
+	    	</iterate>
+    	</isNotNull>
+    	<isNotNull prepend =" AND " property="jd">
+	    	 JD = #jd# 
+	    	
+    	</isNotNull>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	 	     <!--焊工审查模块数据-->
+    <select id="getwelderpagedata" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+    	select uuid,
+name,operatingnumber,company,empnumber,code,special,job,authority,items,validity,review,initial,status,remarks,JD
+,t2.FILE_ID as fileId,t2.FILE_PATH
+as filepath,t2.FILE_REAL_NAME as fileRealName FROM WELDING_WELDER t1
+left join T_COMMON_FILEUPLOAD t2 on t1.fj = t2.file_id where t1.isdel=0
+    	<isNotNull prepend =" AND " property="jd" >
+		   		JD = #jd# 
+		   </isNotNull> 
+    	 <isNotNull property="Identification">
+                and t1.uuid in
+                <iterate property="Identification" conjunction="," open="(" close=")">
+                    #Identification[]#
+                </iterate>
+         </isNotNull>
+         <isNotNull property="already">
+                and t1.uuid not in
+                <iterate property="already" conjunction="," open="(" close=")">
+                    #already[]#
+                </iterate>
+         </isNotNull>
+         <isNotNull prepend =" AND " property="name" >
+		   		NAME like '%'+#name#+'%'
+		   </isNotNull> 
+		   <isNotNull prepend =" AND " property="empnumber" >
+		   empnumber like '%'+#empnumber#+'%'  
+		   </isNotNull> 
+		   <isNotNull prepend =" AND " property="company" >
+		   		company like  '%'+#company# +'%'
+		   </isNotNull> 
+		   order by createtime desc
+		   	
+			
+ 	</select>
+ 	
+ 	 	
+ 	 	     <!--焊工审查模块数据-->
+    <select id="getwelderdata" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+    	select t3.uuid,
+name,operatingnumber,company,empnumber,code,special,job,authority,items,CONVERT(varchar(100),convert(datetime,validity), 23) validity,review,CONVERT(varchar(100),convert(datetime,initial), 23) initial,status,remarks,t3.JD as jd,t3.JZ as jz
+,t4.FILE_ID as fileId,t4.FILE_PATH
+			as filepath,t4.FILE_REAL_NAME as fileRealName  FROM
+T_DXGL_ZZSQGL_RELATION t1
+			left join T_DXGL_ZZSQGL_REMINDER t2 on t2.uuid=t1.checkid
+			left join WELDING_WELDER t3 on t1.number=t3.uuid
+			left join T_COMMON_FILEUPLOAD t4 on t3.fj = t4.file_id
+			where t3.isdel=0 and t2.relationtype='Welder'
+    	<isNotNull prepend =" AND " property="jd" >
+		   		 t3.JD = #jd# 
+	   		</isNotNull> 
+         <isNotNull prepend =" AND " property="checkid">
+                t1.checkid =#checkid#
+         </isNotNull>
+         <isNotNull prepend =" AND " property="relationType">
+                t1.relationType=#relationType#
+         </isNotNull>
+         <isNotNull prepend =" AND " property="advanceday">
+                datediff(day,GETDATE(),validity)&lt;=#advanceday# and datediff(day,GETDATE(),validity)-#duration#&lt;=0
+         </isNotNull>
+         <isNotNull prepend =" AND " property="duration">
+                datediff(day,GETDATE(),validity)-#duration#&lt;=0
+         </isNotNull>
+         <isNotNull prepend =" AND " property="result">
+                (t1.result='不合格' or t1.remark  like '%注意时间%') 
+         </isNotNull>
+		  
+ 	</select>
+ 	
+ 	
+ 	 <!--焊工审查模块数据-->
+    <select id="getwelderdatadic" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+    	select 
+name,operatingnumber,company,empnumber,code,special,job,authority,t4.DICTNAME as items,CONVERT(varchar(100),convert(datetime,validity), 23) validity,review,CONVERT(varchar(100),convert(datetime,initial), 23)  initial,t5.DICTNAME as status,remarks,t3.JD as jd,t3.JZ as jz
+  FROM
+T_DXGL_ZZSQGL_RELATION t1
+			left join T_DXGL_ZZSQGL_REMINDER t2 on t2.uuid=t1.checkid
+			left join WELDING_WELDER t3 on t1.number=t3.uuid
+			LEFT JOIN EOS_DICT_ENTRY t4 ON t4.DICTID = t3.items
+						AND t4.DICTTYPEID ='CZXM'
+			LEFT JOIN EOS_DICT_ENTRY t5 ON t5.DICTID = t3.status
+						AND t5.DICTTYPEID ='WSZT'			
+			where t3.isdel=0 and t2.relationtype='Welder'
+    	<isNotNull prepend =" AND " property="jd" >
+		   		 t3.JD = #jd# 
+	   		</isNotNull> 
+         <isNotNull prepend =" AND " property="checkid">
+                t1.checkid =#checkid#
+         </isNotNull>
+         <isNotNull prepend =" AND " property="relationType">
+                t1.relationType=#relationType#
+         </isNotNull>
+         <isNotNull prepend =" AND " property="advanceday">
+                datediff(day,GETDATE(),validity)-#advanceday#+#duration#&gt;=0 and datediff(day,GETDATE(),validity)-#advanceday#+#duration#&lt;=#duration#
+         </isNotNull>
+         
+         <isNotNull prepend =" AND " property="result">
+                (t1.result='不合格' or t1.remark  like '%注意时间%') 
+         </isNotNull>
+		  
+ 	</select>
+ 	
+ 	 <!--焊工审查模块总条数-->
+    <select id="getwelderdatacount" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+    	select count(1) as count FROM WELDING_WELDER t1
+left join T_COMMON_FILEUPLOAD t2 on t1.fj
+= t2.file_id where t1.isdel=0
+    	<isNotNull prepend =" AND " property="jd" >
+		   		JD = #jd# 
+		   </isNotNull> 
+    	 <isNotNull property="Identification">
+                and operatingnumber in
+                <iterate property="Identification" conjunction="," open="(" close=")">
+                    #Identification[]#
+                </iterate>
+         </isNotNull>
+         <isNotNull property="idnumbers">
+                and operatingnumber not in
+                <iterate property="idnumbers" conjunction="," open="(" close=")">
+                    #idnumbers[]#
+                </iterate>
+         </isNotNull>
+         <isNotNull prepend =" AND " property="name" >
+		   		NAME like '%'+#name#+'%'
+		   </isNotNull> 
+		   <isNotNull prepend =" AND " property="empnubmer" >
+		   		empnubmer like '%'+#empnubmer#+'%'  
+		   </isNotNull> 
+		   <isNotNull prepend =" AND " property="company" >
+		   		company = #company# 
+		   </isNotNull>
+ 	</select>
+ 	 <select id="QRwelder" resultClass="com.cgn.itmp.weldingmanagement.Welder.Welder" parameterClass="java.lang.String">
+			   SELECT uuid,
+				t4.name as jd,t1.name,company,empnumber,code,operatingnumber,special,job,authority,t2.DICTNAME as items,convert(varchar(10),validity,120) as validity,
+				review, convert(varchar(10),initial,120) as initial,t3.DICTNAME as status,fj,remarks,fileid
+			FROM
+				WELDING_WELDER t1
+			LEFT JOIN EOS_DICT_ENTRY t2 ON t2.DICTID = items
+			AND t2.DICTTYPEID ='CZXM'
+			LEFT JOIN EOS_DICT_ENTRY t3 ON t3.DICTID = t1.status
+			AND t3.DICTTYPEID ='WSZT'
+			LEFT JOIN TD_DXGL_JDDICT t4 ON t4.id= t1.jd
+		WHERE t1.uuid=#id#
+ 	</select>
+ 	<select id="QRjd" resultClass="java.lang.String" parameterClass="java.lang.String">
+    	select name as name  from TD_DXGL_JDDICT  where ISDELETE != '1' and id=#id#
+    </select>
+    <select id="getcertificates"  parameterClass="java.lang.String"  resultClass="commonj.sdo.DataObject">
+		 SELECT cernumber,projcode,validdate,office,uuid FROM WELDING_CERTIFICATE 
+		 where   relationid=#welder#  ORDER BY  orderno; 
+	</select>
+</sqlMap>

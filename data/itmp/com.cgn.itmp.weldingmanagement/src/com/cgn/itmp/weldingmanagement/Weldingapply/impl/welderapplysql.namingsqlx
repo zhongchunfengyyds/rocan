@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:train -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+    
+    <!-- 获取最大流水号-->
+    <select id="getapplyno" parameterClass="java.lang.String" resultClass="java.lang.String">
+    	SELECT TOP 1 (applyno) FROM WELDING_APPLY where isdel='0' and applyno like #rounds#+'%'  order by createtime desc
+ 	</select>
+ 	
+     <!-- 主票号管理-->
+     <select id="getticketnumber" resultClass="commonj.sdo.DataObject" parameterClass="java.lang.String"> 
+      SELECT DISTINCT(ticketnumber) AS ticketnumber   
+       FROM WELDING_APPLY where isdel = '0' and ticketnumber is not null and jd=#jd#
+    </select>
+    
+     <!-- 主票号管理-->
+     <select id="updatestate"  parameterClass="java.lang.String"  resultClass="commonj.sdo.DataObject"> 
+      update WELDING_APPLY set status='DTJ',isdel='3' where processInstId=#processInstId#
+    </select>
+ 	
+     <!-- 二维码查询WA编号-->
+     <select id="getWAnumber"  parameterClass="java.lang.String"  resultClass="java.lang.String"> 
+     SELECT applyno FROM WELDING_APPLY t1 where t1.qualitynumber  like '%'+(select t2.qualitynumber from WELDING_QUALITY t2 
+     where t2.uuid=#id#)+'%'
+    </select>
+</sqlMap>

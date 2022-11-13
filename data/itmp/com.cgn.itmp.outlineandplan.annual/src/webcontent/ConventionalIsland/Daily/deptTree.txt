@@ -1,0 +1,10 @@
+﻿{treeDepts:
+[
+	{"name":"年度计划", "id":"ndjh", expanded: true},
+	{"name":"检查项目清单", "id":"xmqd", "pid": "ndjh"},
+
+	{"name":"专用检查计划", "id":"zy", "pid": "ndjh",expanded: true},	
+	{"name":"通用", "id":"ty", "pid": "zy"},	
+	{"name":"压力管道", "id":"hyh", "pid": "zy"}
+]
+}

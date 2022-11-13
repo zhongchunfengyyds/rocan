@@ -1,0 +1,27 @@
+{treeDepts:
+[
+	{"name":"ET", "id":"et", expanded: true},
+	{"name":"传热管BOBBIN", "id":"crgbobbin", "pid": "et"},
+	{"name":"传热管MRPC", "id":"crgmrpc", "pid": "et"},
+	{"name":"传热管轮廓曲线", "id":"crglkqx", "pid": "et"},
+	{"name":"指套管涡流", "id":"ztgwl", "pid": "et"},
+	{"name":"螺栓/螺母", "id":"lslm", "pid": "et"},
+
+
+	{"name":"UT", "id":"ut",expanded: true},	
+	{"name":"焊缝手动超声", "id":"hfsdcs", "pid": "ut"},
+	{"name":"热疲劳手动超声", "id":"rplsdcs", "pid": "ut"},
+	{"name":"螺栓手动超声", "id":"lssdcs", "pid": "ut"},
+	{"name":"主泵飞轮手动超声", "id":"zbflsdcs", "pid": "ut"},
+	{"name":"主螺栓超声", "id":"zlscs", "pid": "ut"},
+	{"name":"RPV自动超声", "id":"rpvzdcs", "pid": "ut"},
+	{"name":"RCCA自动超声", "id":"rccazdcs", "pid": "ut"},
+	{"name":"PA-UT", "id":"paut", "pid": "ut"},
+	
+	{"name":"RT", "id":"rt",expanded: true},	
+	{"name":"CCTV", "id":"cctv",expanded: true},	
+	{"name":"VT", "id":"vt",expanded: true},	
+	{"name":"MT", "id":"mt",expanded: true},	
+	{"name":"PT", "id":"pt",expanded: true}
+]
+}

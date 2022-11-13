@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tBusinessLogic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="updateWeldingapplyByCancel" detailDescription="" demonstration="" urls="" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0">
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" type="start">
+    <sourceConnections xsi:type="process:tLink" id="link0" name="link0" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>start0</sourceNode>
+      <targetNode>invokeSpring0</targetNode>
+    </sourceConnections>
+    <sourceConnections xsi:type="process:tLink" description="" id="link4" name="link4" displayName="连接线" type="transition">
+      <sourceNode>start0</sourceNode>
+      <targetNode>assign0</targetNode>
+      <process:transitionCondition>
+        <process:simpleCondition operator="NOTNULLANDEMPTY">
+          <process:leftOperand type="query">weldingapply/filepath</process:leftOperand>
+          <process:rightOperand type="literal">1</process:rightOperand>
+        </process:simpleCondition>
+      </process:transitionCondition>
+    </sourceConnections>
+    <location x="100" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="process:tEnd" id="end0" name="结束" displayName="结束" type="end">
+    <targetConnections>link1</targetConnections>
+    <location x="525" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end0label</nodeLabel>
+    <process:returns/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" displayName="label" nodeType="label">
+    <location x="99" y="186"/>
+    <figSize height="20" width="31"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end0label" name="label" displayName="label" nodeType="label">
+    <location x="524" y="186"/>
+    <figSize height="20" width="31"/>
+    <node>end0</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="" id="invokeSpring0" name="updateWeldingapply" displayName="updateWeldingapplyByCancel" type="invoke" index="0" invokeType="invoke_spring" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link1" name="link1" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>invokeSpring0</sourceNode>
+      <targetNode>end0</targetNode>
+    </sourceConnections>
+    <targetConnections>link0</targetConnections>
+    <targetConnections>link5</targetConnections>
+    <location x="315" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>invokeSpring0label</nodeLabel>
+    <process:spring methodType="beanID" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.itmp.weldingmanagement.Weldingapply.impl.WeldingapplyService.updateWeldingapplyByCancel</process:partner>
+      <process:instance instanceName="WeldingapplyBean"/>
+    </process:spring>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="weldingapply" type="query" value="com.cgn.itmp.weldingmanagement.Weldingapply.Weldingapply" valueType="Java" pattern="reference">weldingapply</process:inputVariable>
+      <process:inputVariable id="1" name="qualitynumber" type="query" value="java.lang.String" valueType="Java" pattern="reference">qualitynumber</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables/>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokeSpring0label" name="label" nodeType="label">
+    <location x="252" y="186"/>
+    <figSize height="20" width="154"/>
+    <node>invokeSpring0</node>
+  </nodes>
+  <nodes xsi:type="process:tAssign" description="将附件ID回传给业务实体" id="assign1" name="附件id赋值" displayName="赋值" collapsed="false" type="assign">
+    <sourceConnections xsi:type="process:tLink" id="link5" name="link5" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>assign1</sourceNode>
+      <targetNode>invokeSpring0</targetNode>
+    </sourceConnections>
+    <targetConnections>link2</targetConnections>
+    <location x="350" y="85"/>
+    <size height="28" width="28"/>
+    <nodeLabel>assign1label</nodeLabel>
+    <process:copy>
+      <process:from type="query" pattern="reference">fileid</process:from>
+      <process:to type="query">weldingapply/fildid</process:to>
+    </process:copy>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="assign1label" name="label" nodeType="label">
+    <location x="327" y="121"/>
+    <figSize height="20" width="75"/>
+    <node>assign1</node>
+  </nodes>
+  <nodes xsi:type="process:tInvoke" description="将附件上传到服务器并存储到数据库中&#xD;&#xA;" id="invokePojo0" name="上传附件" displayName="上传附件" collapsed="false" type="invoke" index="0" invokeType="invoke_pojo" varArgs="false">
+    <sourceConnections xsi:type="process:tLink" id="link2" name="link2" displayName="link3" isDefault="true" type="transition">
+      <sourceNode>invokePojo0</sourceNode>
+      <targetNode>assign1</targetNode>
+      <process:transitionCondition/>
+    </sourceConnections>
+    <targetConnections>link3</targetConnections>
+    <location x="258" y="85"/>
+    <size height="28" width="22"/>
+    <nodeLabel>invokePojo0label</nodeLabel>
+    <process:pojo methodType="instance" synchronization="true" transactionType="join">
+      <process:partner type="literal">com.cgn.itmp.basecommon.FileUtil.uploadFile</process:partner>
+      <process:instance instanceName=""/>
+    </process:pojo>
+    <process:inputVariables>
+      <process:inputVariable id="0" name="clientFilePath" type="query" value="java.lang.String" valueType="Java" pattern="reference">filepath</process:inputVariable>
+      <process:inputVariable id="1" name="clientFileName" type="query" value="java.lang.String" valueType="Java" pattern="reference">filename</process:inputVariable>
+    </process:inputVariables>
+    <process:outputVariables>
+      <process:outputVariable id="0" name="out0" type="query" value="java.lang.String" valueType="Java">fileid</process:outputVariable>
+    </process:outputVariables>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="invokePojo0label" name="label" nodeType="label">
+    <location x="239" y="121"/>
+    <figSize height="20" width="61"/>
+    <node>invokePojo0</node>
+  </nodes>
+  <nodes xsi:type="process:tAssign" description="根据附件路径上传附件信息到数据库" id="assign0" name="获取附件信息" displayName="赋值" collapsed="false" type="assign">
+    <sourceConnections xsi:type="process:tLink" id="link3" name="link3" displayName="link0" isDefault="true" type="transition">
+      <sourceNode>assign0</sourceNode>
+      <targetNode>invokePojo0</targetNode>
+    </sourceConnections>
+    <targetConnections>link4</targetConnections>
+    <location x="170" y="85"/>
+    <size height="28" width="28"/>
+    <nodeLabel>assign0label</nodeLabel>
+    <process:copy>
+      <process:from type="query" pattern="reference">weldingapply/filepath</process:from>
+      <process:to type="query">filepath</process:to>
+    </process:copy>
+    <process:copy>
+      <process:from type="query" pattern="reference">weldingapply/filename</process:from>
+      <process:to type="query">filename</process:to>
+    </process:copy>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="assign0label" name="label" nodeType="label">
+    <location x="139" y="121"/>
+    <figSize height="20" width="91"/>
+    <node>assign0</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="LENOVO" createTime="2019-08-15 15:37:50" date="2019-08-15Z" description="" name="updateWeldingapplyByCancel" version="7.0.0.0"/>
+  <process:variables/>
+  <process:serviceVariables/>
+  <process:inputs varArgs="false">
+    <process:input description="" isArray="false" modelType="com.cgn.itmp.weldingmanagement.Weldingapply.Weldingapply" name="weldingapply"/>
+    <process:input description="" isArray="false" name="qualitynumber" primitiveType="String"/>
+  </process:inputs>
+  <process:outputs/>
+  <process:extAttribute1>public</process:extAttribute1>
+  <process:transactionType>true</process:transactionType>
+</process:tBusinessLogic>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:Administrator -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="getSaveCount" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+    	select count(1) count from T_DXGL_ZQCONTROLL where jdid=#jdid# and jzid=#jzid# and isdelete = '0'
+    </select>
+    
+    
+    <select id="validPowerNameExist" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+    	SELECT COUNT(1) count FROM TD_DXGL_JDDICT WHERE NAME in 
+			<iterate open="(" close=")" conjunction=",">
+				#paramList[]#
+			</iterate>
+		 AND ISDELETE = '0'
+    </select>
+    
+    <!-- 获取所有没有设置周期的基地机组 -->
+    <select id="getNoZQPowerAndCrew" resultClass="commonj.sdo.DataObject">
+    	SELECT POWER.ID jdid,CREW.ID jzid,'1' cstart,'60' cend,'1991-2089' richangzq,'0' isdelete,'C1-C60' cvalue,'1991' rcstart,'2089' rcend,CONVERT(varchar,GETDATE(),120) updtime FROM 
+		TD_DXGL_JDDICT POWER
+		LEFT JOIN TD_DXGL_JIZUDICT CREW ON CREW.JDID = POWER.ID
+		LEFT JOIN T_DXGL_ZQCONTROLL ZQ ON (ZQ.JDID = POWER.ID AND ZQ.JZID = CREW.ID AND ZQ.ISDELETE = '0')
+		WHERE POWER.ISDELETE = '0' AND CREW.ISDELETE = '0' AND ZQ.UUID IS NULL
+    </select>
+    
+   
+    <select id="getTree" resultClass="commonj.sdo.DataObject">
+    	SELECT firstmenu,twolevelmenu,isdelete FROM [dbo].[T_SY_MENU] group by firstmenu,twolevelmenu,isdelete order by isdelete
+    	    </select>
+    
+    
+    <select id="getcount" parameterClass="java.lang.String" resultClass="java.lang.String">
+    	SELECT count(1) FROM [dbo].[T_SY_MENU] where menupath=#path#
+    </select>
+    
+    
+    
+</sqlMap>

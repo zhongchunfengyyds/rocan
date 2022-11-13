@@ -1,0 +1,300 @@
+@CHARSET "UTF-8";
+
+.nui-taskview {
+	width: 100%;
+}
+
+.table-layout {
+	padding: 10px 60px;
+	background-color: #fff;
+}
+
+.table-layout .table-cell {
+	width: 50%;
+	float: left;
+	border: 1px;
+}
+
+.table-cell .mini-labelfield {
+	width: 100%;
+}
+
+.table-layout .table-full-row {
+	width: 100%;
+}
+
+.nui-taskview .mini-labelfield-label {
+	width: 150px;
+	text-align: right;
+}
+
+.mini-required .mini-labelfield-label:before {
+	color: red;
+	content: "* ";
+	before: "<font color=" red ">* </font>";
+}
+
+.mini-labelfield-label:after {
+	content: "\3A";
+	after: "\3A";
+}
+
+.table-layout .nui-taskview .mini-textbox-border,.table-layout .nui-taskview .mini-buttonedit-border
+	{
+	
+}
+
+.mini-labelfield,.mini-labelfield-checkboxlist {
+	margin: 5px 0;
+}
+
+.mini-labelfield-checkboxlist {
+	height: 25px;
+}
+
+.mini-textbox-input,.mini-buttonedit-input {
+	
+}
+
+.nui-taskview .mini-textbox-readOnly .mini-textbox-border {
+	border: none;
+}
+
+.nui-taskview .mini-panel-border {
+	
+}
+
+.nui-taskview .mini-panel-header {
+	font-weight: bold;
+}
+
+.nui-taskview .mini-panel-collapse .mini-panel-header {
+	
+}
+
+.nui-taskview .mini-panel .mini-panel-title {
+	margin-left: 18px;
+	line-height: 12px;
+}
+
+.nui-taskview .mini-panel .mini-tools {
+	left: 8px;
+}
+
+table {
+	font-size: 9pt;
+}
+
+thead {
+	border-bottom: 1px solid;
+}
+
+.operation-info {
+	margin-right: 80px;
+}
+
+.nui-expanddown {
+	background: url(images/icon_arrow_down2.png );
+	width: 13px;
+	height: 13px;
+	display: inline-block;
+	margin-left: 10px;
+	vertical-align: center;
+}
+
+/*a  upload */
+.a-upload {
+	padding: 0 10px;
+	height: 20px;
+	line-height: 20px;
+	position: relative;
+	cursor: pointer;
+	color: #888;
+	border-radius: 4px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.a-upload  input {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	cursor: pointer;
+	z-index: 2;
+}
+
+.a-upload:hover {
+	color: #444;
+	/*     background: #eee;
+    border-color: #ccc; */
+	text-decoration: none
+}
+
+#nextCandidates .activitys {
+	list-style-type: none;
+	margin: 0;
+	width: 100%;
+}
+
+.activitys .activity {
+	float: left;
+	margin-left: 4px;
+	width: 300px;
+}
+
+#nextCandidates .candidates {
+	float: left;
+	margin-left: 4px;
+}
+
+.candidates li {
+	float: left;
+}
+
+.candidates li.icon {
+	padding-left: 16px;
+}
+
+body .mini-textbox-input {
+	overflow-y: auto
+}
+/* .mini-error .mini-textbox-border, .mini-error .mini-buttonedit-border {
+	margin-right: 200px;
+} */
+.mini-errorIcon {
+	background-image: none !important;
+	width: auto;
+	margin-top: 0;
+	height: 21px;
+	line-height: 21px;
+	color: red;
+}
+
+.icon-node {
+	display: block;
+	width: 15px;
+	height: 15px;
+	overflow: hidden;
+	background: url(images/icon1.gif) no-repeat 50% 50%;
+}
+
+.icon-attention {
+	width: 25px;
+	height: 15px;
+	background: url(images/attention.png) no-repeat 50% 50%;
+}
+
+.icon-attention1 {
+	width: 50px;
+	height: 15px;
+	background: url(images/attention1.png) no-repeat 50% 50%;
+}
+
+.mini-mask-uploading {
+	padding: 10px 8px 10px 10px;
+	border: 2px solid #517fad;
+}
+
+.iconBtn {
+	-webkit-transition: all .25s;
+	padding: 6px 12px;
+}
+
+.iconBtn .fa {
+	margin-right: 5px;
+	font-size: 13px;
+}
+
+.btn:hover,.btn:focus,.btn.focus {
+	text-decoration: none;
+}
+
+.form-control {
+	padding: 0 0 0 0;
+}
+
+/*.mini-textbox-border,.mini-buttonedit-border {
+	border: 0px;
+}*/
+.form-group{
+	width:100%;
+	}
+.mini-radiobuttonlist-item label{
+	position: relative;
+}
+.mini-radiobuttonlist,.mini-checkboxlist
+{    
+    font-size:14px;
+    font-family: "microsoft yahei"; 
+}
+.lt-input {
+	float: left;
+	width: 50%;
+	padding-right: 20px;
+	padding-top: 3px;
+}
+
+.rt-input {
+	float: right;
+	width: 50%;
+	padding-left: 20px;
+	padding-top: 3px;
+}
+
+.lt-input>.form-group,.rt-input>.form-group,.table-layout>.form-group
+	{
+	padding-left: 75px;
+	position: relative;
+}
+
+.lt-input>.form-group>label,.rt-input>.form-group>label,.table-layout>.form-group>label
+	{
+	position: absolute;
+	color: #999;
+	left: 0;
+	top: 7px;
+}
+
+.rt-input>.form-group>label:after,.lt-input>.form-group>label:after,.table-layout>.form-group>label:after
+	{
+	content: "\3A";
+	after: "\3A";
+}
+.fixd-btn-group{
+		    position:fixed;
+		    z-index:10000;
+		    width:100%;
+		    left:0;
+		    bottom:0;
+		    background-color:#E5E9EC;
+		    padding:8px 60px;
+		    margin-bottom:0;
+		}
+<!-- 流程日志样式修改 -->
+.mini-panel-border {
+    border: 0px solid #999999;
+    overflow: hidden;
+    position: relative;
+}
+.mini-grid-headerCell-inner {
+	font-size: 14px;
+    font-family: "microsoft yahei"!important;
+}
+.mini-grid-cell-inner{
+	font-size: 13px;
+    font-family: "microsoft yahei"!important;
+}
+.mini-grid-table > tbody > tr:nth-child(2) {
+    border-top: 0px solid #ddd;
+    color: #aaa;
+}
+.mini-grid-headerCell{
+	height:30px;
+}
+.mini-grid-cell {
+	height:30px;
+}
+<!-- 流程日志样式修改 -->
+

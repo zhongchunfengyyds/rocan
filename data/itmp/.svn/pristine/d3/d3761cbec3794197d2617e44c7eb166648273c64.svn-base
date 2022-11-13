@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Require-Bundle: com.cgn.itmp.basecommon,com.primeton.eos.richweb,com.e
+ os.foundation,com.eos.workflow,org.cgn.components.coframe.framework,o
+ rg.cgn.components.coframe.auth,com.cgn.components.coframe.tools,com.c
+ gn.components.coframe.taskcenter,com.cgn.components.coframe.tagauth,c
+ om.cgn.components.coframe.interfaces
+Bundle-Vendor: rocan
+eos-webCtxPath: outlineCommon
+Bundle-Version: 1.0.0
+Bundle-Name: 大纲管理通用流程
+Bundle-Description: 大纲管理通用流程
+Bundle-SymbolicName: com.cgn.itmp.outlineandplan.outline.common
+

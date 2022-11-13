@@ -1,0 +1,398 @@
+﻿/*全局样式设置*/
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+/*此样式为clip.js中由js加入，在页面显示源代码的样式*/
+.modal-backdrop.in{
+	opacity:0.9;
+}
+.modal-backdrop{
+	background-color:#fff;
+}
+/*搜索框样式*/
+.navbar-form {
+    margin: 0;
+    padding: 8px 15px;
+}
+/*高级搜索下面输入框外列的样式*/
+.input-control{	
+	float:left;
+}
+.input-width{
+	width: 33.3%;	
+}
+/*流程配置模块中流程配置，人工活动配置和流程图一行左外边距的样式*/
+.nav-tabs{
+	margin-left:15px;
+}
+/*商品管理新增修改表单样式 文件分发流程表单信息样式*/
+.lt-input{
+	float:left;
+	width:50%;
+	padding-right:20px;
+	padding-top:3px;
+}
+.rt-input{
+	float:right;
+	width:50%;
+	padding-left:20px;
+	padding-top:3px;
+}
+/*流程配置表单样式*/
+.form-box .form-group{width:100%;}
+.form-add{margin-bottom:25px ;}
+.form-add-btn{
+	background:#e5f0f7;
+	color:#0067ac;
+	border:1px solid #E8E8E8;
+	padding:3px 8px;
+	margin-left:5px;
+	position:relative;
+}
+.form-add-btn .fa-minus-circle{
+	position:absolute;
+	right:0;
+	top:0;
+	color:#EC6C00;
+	cursor: pointer;
+	display:none;
+}
+.form-add .fa-plus{margin-left:5px;color:#036BAD;}
+.form-submit{
+	margin-left:80px;
+}
+.star{
+	font-size:12px;
+	color:#E94848;
+}
+/*包含流程配置、人工活动配置、流程图的盒子模型的样式*/
+.form-first{
+	background-color:#fff;
+	padding-top:10px;
+}
+/*搜索框盒子模型和表单盒子模型的通用样式*/
+.bs-docs-section{
+/* 	padding-bottom:0 !important;		 */
+}
+/*表单的通用样式*/
+.form-box{
+	padding-bottom:20px;
+}
+.form-demo-nei{
+	padding:10px 60px 50px;
+	overflow:auto;
+}
+.form-demo-nei .form-group,.form-add{
+	padding-left:75px;
+	position:relative;
+}
+.form-demo-nei .form-group label,.form-add-tit{
+	position:absolute;
+	left:0;
+	top:7px;
+}
+.form-demo-nei .fixd-btn-group{
+	position:fixed;
+	left:0;
+	bottom:0;
+	background-color:#E5E9EC;
+	padding:8px 60px;
+	margin-bottom:0;
+}
+/* 提交成功的样式*/
+.succ{
+	display:none;
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: 1050;
+}
+.submit-success{
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:200px;
+	padding:15px;
+	margin-left:-100px;
+	margin-top:-115px;
+	z-index: 1050;
+}	
+.sub-img{
+	text-align:center;
+}
+.sub-img>img{
+	max-width: 100%;display:inline-block;
+}
+.submit-success .succ-text,.submit-success .small-succ{
+	text-align:center;
+	padding:6px;
+	margin:0;
+}
+.submit-success .succ-text{
+	font-size: 18px;
+	color:#000;
+}
+.submit-success .small-succ{
+	color:#666;
+	font-size:14px;
+}
+/*  进度  */
+/*.schedule{
+	margin-bottom:15px;
+	text-align:center;
+	overflow:hidden;
+}
+.schedule .schedule-inline{
+	display:inline-block;
+}
+.schedule-box{
+	float:left;
+	vertical-align: middle;
+}
+.schedule-box .circle,.schedule-box .text,.schedule-box .border{
+	float:left;
+}
+.schedule-box .text,.schedule-box .border{
+	margin-left:7px;
+}
+.schedule-box .circle{
+	display:inline-block;
+	width:25px;
+	height:25px;
+	line-height:25px;
+	color:#666;
+	text-align:center;
+	border-radius:50%;
+	border:1px solid #666;
+	font-size:12px;
+}
+.schedule-box .text{
+	color:#999;
+	line-height:25px;
+	margin-top:-1px;
+}
+.schedule-box .border{
+	display: inline-block;
+	width:80px;
+	height:1px;
+	margin-top:12px;
+	border-top:1px solid #999;
+	background:#999;
+}
+.schedule-box.item .circle{
+	color:#004a86;
+	border-color:#004a86;
+}
+.schedule-box.item .border{
+	border-top-color:#004a86;
+	background-color:#004a86;
+}
+.schedule-box.item .text{
+	color:#004a86;
+}
+.schedule-box + .schedule-box{
+	margin-left:7px;
+}
+.schedule-box.active .circle{
+	background-color:#004a86;
+	border-color:#004a86;
+	color:#fff;
+}
+.schedule-box.active-overtime .circle{
+	background-color:#e94848;
+	color:#fff;
+	border-color:#e94848;
+}
+.schedule-box.active .text{
+	color:#004a86;
+}
+.schedule-box.active-overtime .text{
+	color:#e94848;
+}
+.btn-times{
+	cursor:pointer;
+	display:inline-block;
+	font-weight:bold;
+	width:15px;
+	line-height:15px;
+	font-size:16px;
+	text-align:right;
+}*/
+/* 新增修改商品样式 */
+.form-demo-nei{
+	padding:10px 20px 20px 60px;
+	overflow:auto;
+	border-bottom:1px solid #ddd;
+}
+.form-demo-nei input{
+	margin-left:10px;
+}
+.lt-input{
+	float:left;
+	width:45%;
+}
+.rt-input{
+	float:right;
+	width:45%;
+}
+.form-box .form-group{
+	width:100%;
+	margin-bottom:15px;
+}
+.star{
+	font-size:12px;
+	color:#E94848;
+}
+.errorText{
+	color:#e94848;
+}
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:hover, 
+.nav-tabs > li.active > a:active, 
+.nav-tabs > li.active > a:focus {
+    outline: none;
+}
+/* nui的input输入框样式start */
+.mini-textbox-input{
+	line-height:23px;
+}
+.mini-placeholder-label{
+	line-height:22px;
+}
+/* nui的input输入框样式end */
+/*日期控件*/
+/*单日期控件开始*/
+.bs-docs-section{
+	background-color:#fff;
+}
+.mini-buttonedit {
+/*    	width: 160px; */
+/* 	width:100%!important; */
+}
+.mini-datepicker .mini-buttonedit-icon:before{
+	content: "\f073";
+	background:#fff;
+}
+.mini-datepicker .mini-buttonedit-icon {
+   	background: #fff !important; 
+   	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+	content: "\f073";
+	height:16px;
+}
+.mini-popup {
+    border: 1px solid #ddd;
+    padding: 4px;
+    border-radius: 4px;
+    background: #fff;
+   	/* max-width: 290px; */	    
+}
+.mini-calendar-header {
+    height: 25px;
+    text-align: center;
+    background: #fff;
+    border-bottom: solid 1px #a7abb0;
+}
+.mini-calendar-footer {
+    padding: 4px;
+    padding-bottom: 5px;
+    background: #fff;
+    border-top: solid 1px #c9c9c9;
+    text-align: center;
+}
+.mini-calendar-tadayButton, .mini-calendar-clearButton, .mini-calendar-okButton, .mini-calendar-cancelButton {
+    border-color: #004a86;
+    background: #004a86;
+    color: #fff;
+    display: inline-block;
+    font-size: 9pt;
+    font-family: "microsoft yahei" !important;
+    text-decoration: none;
+    padding: 4px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 52px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.calendar-date {
+    border: 1px solid #ddd;
+    padding: 4px;
+    border-radius: 4px;
+    background: #fff;
+}
+.daterangepicker .calendar th, .daterangepicker .calendar td {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 32px;
+}
+.mini-calendar-date {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+	font-size: 10pt !important;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 32px;
+    /* border: solid 1px white; */
+}
+.mini-calendar-daysheader {
+	font-weight:bold !important;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #004a86;
+    border-color: #004a86;
+    color: #fff;
+}
+.mini-calendar .mini-calendar-selected, .mini-calendar .mini-calendar-date:hover {
+    background-color: #004a86;
+    border-color: #004a86;
+    color: #fff;
+}
+.mini-calendar-tadayButton:hover, .mini-calendar-clearButton:hover, .mini-calendar-okButton:hover, .mini-calendar-cancelButton:hover {
+	background-color:#666;
+}
+ .mini-timespinner {
+	width: 110px !important;
+}
+.mini-calendar {
+	width: 250px !important;
+    height: 220px;
+    border: 0px;
+}
+/*单日期控件结束*/
+/*下拉框样式start*/
+.mini-listbox-item-selected{
+	background: #0069ac;
+    color: #fff;
+}
+.mini-listbox-item-hover{
+	background: #0099e3;
+    color: #fff;
+}
+.mini-listbox td{
+	font-family:"microsoft yahei";
+}
+/*下拉框样式end*/
+
+/* 系统设置的修改 */
+.nav-tabs {
+    padding-top: 20px;
+}
+.nav > li > a {
+    padding: 0px 5px!important;
+}
+.mini-combobox {
+    width: 62%!important;
+}
+.form-group .mini-textbox, .form-group .mini-buttonedit {
+    margin-top: 6px;
+}

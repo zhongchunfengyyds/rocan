@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:wujie -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+    
+   	<select id="getProcessesStepsByPid" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		select uuid,processid,orders,steps,filenumber,version from WELDING_PROCESS_STEPS where processid = #pid# order by orders  
+	</select>
+	
+	<select id="getProcessesStepsByProcessid" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+			SELECT orders,steps,filenumber,version FROM WELDING_PROCESS_STEPS where processid = #pid# order by orders
+	</select>
+	
+    <delete id="deleteProcessesStepsByPid" parameterClass="java.lang.String">
+    	delete from WELDING_PROCESS_STEPS where processid = #pid# 
+    </delete>
+    
+	<select id="getProcessesIds" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		SELECT uuid as id, processname as name FROM WELDING_PROCESS where jd = #jdid# and isdel = '0'
+		union
+		select '1' as id,'自定义' as name 
+	</select>
+	
+	<delete id="deleteRealChindData" parameterClass="java.lang.String">
+		delete from WELDING_PROCESS_STEPS where processid = #pid#
+	</delete>
+	
+	<delete id="deleteRealData" parameterClass="java.lang.String">
+		delete from WELDING_PROCESS where uuid = #id#
+	</delete>
+	
+	
+</sqlMap>

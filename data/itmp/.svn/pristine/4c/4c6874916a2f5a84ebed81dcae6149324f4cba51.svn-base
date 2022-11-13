@@ -1,0 +1,56 @@
+#animationTipBox {
+	font-family: "Microsoft Yahei","΢���ź�",Arial,Tahoma;
+	font-size: 14px;
+	width: 250px;
+	height: auto;
+	background-color: #fff;
+	border-radius: 8px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -125px;
+	margin-top: -85px;
+	z-index: 1001;
+	-webkit-animation: alertAnimation .3s ease-in-out 0 1;
+	-moz-animation: alertAnimation .3s ease-in-out 0 1;
+	animation: alertAnimation .3s ease-in-out 0 1
+}
+
+#animationTipBox .icon {
+	margin: 15px auto 5px 75px;
+	/* position: relative;
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
+	border: 4px solid #6c3;
+	margin: 15px auto 5px auto; */
+}
+
+#animationTipBox .icon_box {
+	/* width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	text-align: center;
+	position: relative */
+}
+
+#animationTipBox .dec_txt {
+	font-size: 16px;
+	text-align: center;
+	color: #666;
+	line-height: 26px;
+	height: 26px;
+	padding: 5px 0 10px 0
+}
+
+.mask {
+	width: 100%;
+	height: 100%;
+	background:#000000;
+	background-color: rgba(0,0,0,.8);
+	filter:alpha(opacity=80);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+}

@@ -1,0 +1,115 @@
+td {
+	font-family: "宋体";
+	font-size: 12px;
+	text-align:left;
+}
+.menu_span {
+	height:28px;
+	display: block;
+	padding-left: 30px;
+	position:relative;
+	line-height:28px;
+}
+.menu_span img {
+	position:absolute;
+	left:5px;
+	top:5px;
+}
+.second_menu {
+	display: block;
+	margin:1px 5px 0 5px;
+	height: 26px;
+	border:1px solid #f2faff;
+	line-height: 26px;
+}
+.second_menu a {
+	padding-left: 30px;	
+	display:block;
+	background:url(../images/sc_menu_icon.gif) no-repeat 15px center;
+	color: #0069ac;
+	text-decoration: none;
+	border:1px solid #f2faff;
+}
+.second_menu a:link {
+	color: #0069ac;
+	text-decoration: none;
+	border:1px solid #f2faff;
+}
+.second_menu a:visited {
+	color: #0069ac;
+	text-decoration: none;
+	border:1px solid #f2faff;
+}
+.second_menu a:hover{
+	color: #0069ac;
+	text-decoration: none;
+	background:#dbf0ff url(../images/sc_menu_icon.gif) no-repeat 15px center;
+	border:1px solid #c2ddf0;
+}
+ .second_menu a:actived {
+ color: #0069ac;
+ font-size: 12px;
+ text-decoration: none;
+ border:1px solid #f2faff;
+}
+
+.focus_menu {
+	display: block;
+	line-height: 26px;
+	height: 26px;
+	margin:1px 5px 0 5px;
+	background: url(../images/leftmenuselected.gif) repeat-x;
+	border:1px solid #dbce59;
+}
+.focus_menu a {
+	display: block;
+	padding-left: 30px;
+	background:url(../images/sc_menu_select_icon.gif) no-repeat 15px center;
+	color: #7c4306;
+	text-decoration:none;
+}
+.focus_menu a:link {
+	color: #7c4306;
+	text-decoration: none;
+}
+.focus_menu a:visited {
+	color: #7c4306;
+	text-decoration: none;
+}
+
+.focus_menu a:hover {
+	color: #7c4306;
+	text-decoration: none;
+}
+ .focus_menu a:actived {
+ color: #fff;
+ font-size: 12px;
+ text-decoration: none;
+}
+.first_menu {
+	height: 28px;	
+	background: url(../images/leftmenunomal.gif) repeat-x;
+	border-bottom:0;
+	color: #1d3e80;
+	line-height: 28px;
+	border-top:none;
+	cursor: pointer;
+}
+.first_menu1 {
+	height: 28px;
+	color: #1d3e80;
+	line-height: 28px;
+	background: url(../images/leftmenunomal.gif) repeat-x;
+	border-bottom:0;
+	border-bottom:1px solid #c2ddf0;
+	cursor: pointer;
+}
+.first_menu2 {
+	height: 28px;
+	color: #1d3e80;
+	line-height: 28px;
+	border-top:none;
+	background: url(../images/leftmenunomal.gif) repeat-x;
+	cursor: pointer;
+}
+.bg_scd_menu{ background:#f2faff url(../Images/bg_scd_menu.gif) repeat-x;}

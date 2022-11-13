@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:littlebear -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+    
+    <select id="getPipeModel" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT DISTINCT MODEL FROM T_PIPEBASEINFO 
+		<isNotNull prepend=" WHERE "  property="jd" >
+			<isEqual compareValue="86" property="jd">
+				JD = #jd#
+			</isEqual>
+			<isEqual compareValue="all" property="jd">
+			</isEqual>
+		</isNotNull>
+		<isNull prepend=" WHERE "  property="jd">
+			JD != '86'
+		</isNull>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:jirukang -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+
+	<select id="getpipenumber" parameterClass="java.util.Map"  resultClass="commonj.sdo.DataObject">
+		select count(1) count from T_PRESSUREPIPING where pipenumber=#pipenumber# and jd=#base# and jz=#crew#
+	</select>
+	
+	<select id="getequipmentnumber" parameterClass="java.util.Map"  resultClass="commonj.sdo.DataObject">
+		select count(1) count from T_PRESSUREVESSEL where equipmentnumber=#equipmentnumber# and jd=#base# and jz=#crew#
+	</select>
+	
+	<delete id="delpressurepiping" parameterClass="java.util.Map">
+		DELETE FROM T_PRESSUREPIPING where uuid=#uuid# and jd=#base# and jz=#crew# ;
+		DELETE FROM T_PRESSUREPIPING_EQUIPMENTHISTORYINFO where realid=#uuid# and jd=#base# and jz=#crew#;
+		DELETE FROM T_PRESSUREPIPING_PIPELINECHEMICALINFO where realid=#uuid# and jd=#base# and jz=#crew#;
+		DELETE FROM T_PRESSUREPIPING_PIPEWELDINFORMATION where realid=#uuid# and jd=#base# and jz=#crew#;
+		DELETE FROM T_PRESSUREPIPING_WATERPIPEINFO where realid=#uuid# and jd=#base# and jz=#crew#;
+	</delete>
+	
+	<!--汽水管件信息-->
+	<select id="getWaterpipefittinginfo" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+	  select ISNULL(pipenumber,(select t.pipenumber from T_PRESSUREPIPING t where t.uuid = realid)) pipenumber,pipesegmentno,pipefittingpositionno,pipetype,fittingnumber,pipeouterdiameter,pipewallthickness,pipelength,pipematerial,materialstandard,dimensionaltolerance,manufacturingform,elbowradius,elbowangle,branchangle,branchpipenumber,furnacelotnumber,materialcontainscr,remarks from T_PRESSUREPIPING_WATERPIPEINFO
+	  where realid in 
+      	<iterate open="(" close=")" conjunction=",">
+			#realidList[]#
+	 	</iterate>
+	 	order by pipenumber,pipesegmentno
+	</select>
+	
+	<!--管道焊缝信息-->
+	<select id="getPipeweldinformation" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+	  select ISNULL(pipenumber,(select t.pipenumber from T_PRESSUREPIPING t where t.uuid = realid)) pipenumber,weldnumber,characteristicparameter from T_PRESSUREPIPING_PIPEWELDINFORMATION
+	  where realid in 
+      	<iterate open="(" close=")" conjunction=",">
+			#realidList[]#
+	 	</iterate>
+	 	order by pipenumber,weldnumber
+	</select>
+	
+	<!--管道化学成分信息-->
+	<select id="getPipelinechemicalinfo" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+	  select ISNULL(pipenumber,(select t.pipenumber from T_PRESSUREPIPING t where t.uuid = realid)) pipenumber,element,contents from T_PRESSUREPIPING_PIPELINECHEMICALINFO
+	  where realid in 
+      	<iterate open="(" close=")" conjunction=",">
+			#realidList[]#
+	 	</iterate>
+	 	order by pipenumber
+	</select>
+	
+	<!--设备历史信息-->
+	<select id="getEquipmenthistoryinfo" parameterClass="java.util.List" resultClass="commonj.sdo.DataObject">
+	  select ISNULL(pipenumber,(select t.pipenumber from T_PRESSUREPIPING t where t.uuid = realid)) pipenumber,deviceversion,commissiontime,freezereplacetime,freezereplacereason,enteringperson,enteringtime,operating from T_PRESSUREPIPING_EQUIPMENTHISTORYINFO
+	  where realid in 
+      	<iterate open="(" close=")" conjunction=",">
+			#realidList[]#
+	 	</iterate>
+	 	order by pipenumber,deviceversion
+	</select>
+	
+</sqlMap>

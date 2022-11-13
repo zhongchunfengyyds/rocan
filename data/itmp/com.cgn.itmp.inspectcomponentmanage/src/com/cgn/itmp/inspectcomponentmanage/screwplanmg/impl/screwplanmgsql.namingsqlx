@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:littlebear -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+	
+	<select id="getInfoById" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		SELECT * FROM T_SCREWPLANMG WHERE UUID = #value#
+	</select>
+	
+	<select id="insetChangeInfo" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		INSERT INTO T_SCREWPLANMG_MF (jd,jz,uuid,changeinfo,changeReason,isdel,changeuser,changeDate,checkposition,checkmethod,fj,fileid,remake,relationid,processInstId,applicant,applicanttime,processStatus)
+		VALUES (#jd#,#jz#,#uuid#,#changeinfo#,#changeReason#,#isdel#,#changeuser#,#changeDate#,#checkposition#,#checkmethod#,#fj#,#fileid#,#remake#,#relationid#,#processInstId#,#applicant#,#applicanttime#,#processStatus#)
+	</select>
+	
+</sqlMap>

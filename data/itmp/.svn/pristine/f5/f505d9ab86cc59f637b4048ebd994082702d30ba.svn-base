@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sca="http://www.springframework.org/schema/sca" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/sca http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+    <bean id="OverhaulCalendarDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.OverhaulCalendarDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="OrganizationMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.OrganizationMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="ItemManageDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.ItemManageDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="PlanMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.PlanMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="SecurityMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.SecurityMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="QualityMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.QualityMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="RiskMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.RiskMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="InternalExperienceFeedbackDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.InternalExperienceFeedbackDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="DefectNoticeManagementDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.DefectNoticeManagementDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="RegulationRequirementsMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.RegulationRequirementsMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="RegulationRequirementsMgtNEWBean" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.cgn.itmp.dailyandoverhaul.overhaul.IRegulationRequirementsMgtNEWService</value>
+            </list>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.overhaul.RegulationRequirementsMgtNEWService">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Require-Bundle: com.cgn.components.core.ui,com.cgn.itmp.basecommon,com
+ .primeton.eos.richweb,com.eos.foundation,com.cgn.components.coframe.t
+ askcenter,com.cgn.components.coframe.tagauth,org.cgn.components.cofra
+ me.auth,com.cgn.components.coframe.interfaces,com.cgn.components.cofr
+ ame.tools,org.cgn.components.coframe.framework
+Bundle-Vendor: littlebear
+eos-webCtxPath: knowledgebase
+Bundle-Version: 1.0.0
+Bundle-Name: com.cgn.itmp.knowledgebase
+Bundle-Description: 知识库
+Bundle-SymbolicName: com.cgn.itmp.knowledgebase
+

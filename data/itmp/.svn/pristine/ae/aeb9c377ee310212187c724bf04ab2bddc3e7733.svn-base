@@ -1,0 +1,147 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+.detail-box{
+	overflow:hidden;
+	position:relative;
+	background-color:#f1f1f1;
+}
+.detail-box .detail-nav,.detail-box .detail-info{
+	float:left;
+}
+.detail-box .detail-info{
+	background-color:#fff;
+}
+.detail-box .detail-nav{
+	width:30%;
+	padding-right:15px;
+}
+.detail-info {
+	width:70%;
+}
+	.detail-info-table{
+		padding:15px 15px  0 15px;
+		border-bottom:1px solid #ddd;
+	}
+	.detail-info-table .row{
+		margin-left:0;
+		margin-right:0;
+	}
+	.detail-info-table .form-group{
+		margin-bottom:0;
+	}
+	.detail-info .detail-info-table .col-sm-2{
+		text-align:right;
+		line-height:34px;
+	}
+.detail-info .detail-info-table .col-sm-2 label{
+	margin-bottom:0;
+}
+.detail-info .detail-info-table .star{
+	font-size:12px;
+	color:#E94848;
+}
+.alert-text{
+	padding:15px 0px;
+}
+.detail-nav > a,.detail-nav .str-nav-list > li > a{
+	display:block;
+	padding:8px 0 8px 15px;
+	color:#333;
+	text-decoration: none;
+	background-color:#fff;
+	cursor:pointer;
+}
+.detail-nav > a:hover,.detail-nav > a.active,.detail-nav > a:active{
+	background-color:#fafafa;
+	color:#333;
+}
+.detail-nav .str-nav-list{
+	list-style:none;
+	margin-bottom:0;
+}
+.detail-nav .str-nav-list > li > a{
+	padding-left:30px;
+}
+.detail-nav .str-nav-list > li > a:hover,.detail-nav .str-nav-list > li > a:active,.detail-nav .str-nav-list > .active > a{
+	background-color:#004a86;
+	color:#fff;
+}
+.detail-box .col-sm-6{
+	padding:0;
+}
+.icon-help{
+	display:none;
+}
+.detail-info-table .fa.fa-question-circle:hover{
+	color:#EC6C00;
+}
+.alert-text h5,.alert-text p{
+	color:#666;
+	font-size:12px;
+}
+
+/*树*/
+.tree-list .tree-list{
+	margin-left:15px;
+}
+.tree-box > .x-border{
+	left:7px;
+	top:25px;
+	bottom:17px;
+}
+.tree-list .x-border{
+	left:22px;
+	top:19px;
+	bottom:40px;
+}
+
+.detail-content > a,.detail-content .str-nav-list > li > a{
+display:block;
+padding:8px 15px;
+color:#333;
+text-decoration: none;
+background-color:#fff;
+cursor:pointer;
+}
+.detail-content > a:hover,.detail-content > a.active,.detail-content > a:active{
+	background-color:#fafafa;
+	color:#333;
+}
+
+.detail-content .str-nav-list > li > a{
+	padding-left:30px;
+}
+.detail-content .str-nav-list > li > a:hover,.detail-content .str-nav-list > li > a:active,.detail-content .str-nav-list > li > .active{
+	background-color:#004a86;
+	color:#fff;
+}
+.str-nav-list .str-nav-list > li > a{
+	padding-left:45px;
+}
+
+.box {
+	top: -40px;
+}
+.detail-box .detail-nav{
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	bottom: 0;
+	z-index: 800;
+}
+.succ{
+	background-color: #000;
+	opacity:0.5;
+} 
+
+.detail-content .str-nav-list > li > a:hover{
+	background-color:#fafafa !important;
+	color: #333;
+}
+.detail-content .str-nav-list > li > ul > li > a:hover{
+	background-color:#004a86 !important;
+	color:#fff;
+}

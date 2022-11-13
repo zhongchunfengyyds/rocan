@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:Sun -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+
+    
+    <select id="getProtype" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+				null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno ) AS RNUM,PROTYPE,orderno
+		 FROM T_DGGL_ENTRY where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]> )t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno
+		 FROM T_DGGL_ENTRY where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1 )t2  order by orderno
+	</select>
+	
+	 <select id="getProtype2" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,PROTYPE,orderno
+		FROM T_DGGL_DAILY where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno
+		FROM T_DGGL_DAILY where isdelete = 0 and base=#baseid# and crew=#crewid# 
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+	<select id="getProtype3" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,PROTYPE,orderno	
+		FROM T_DGGL_GFFFD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno,orderno	
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno	
+		FROM T_DGGL_GFFFD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid# 
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+	<select id="getProtype4" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno	 from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,PROTYPE,orderno	
+		FROM T_DGGL_GFFFD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno	
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno	
+		FROM T_DGGL_GFFFD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+	<select id="getProtype5" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno	,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,p1.DICTNAME as PROTYPE	,orderno
+		FROM T_DGGL_SNJH_HD_DXTM p
+		join EOS_DICT_ENTRY p1 on p.PROTYPE = p1.DICTID
+		where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno	
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,p1.DICTNAME as PROTYPE	,orderno
+		FROM T_DGGL_SNJH_HD_DXTM p 
+		join EOS_DICT_ENTRY p1 on p.PROTYPE = p1.DICTID
+		where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	<select id="getProtype6" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,p1.DICTNAME as PROTYPE,orderno
+		FROM T_DGGL_SNJH_HD_RCTM p
+		join EOS_DICT_ENTRY p1 on p.PROTYPE = p1.DICTID
+		where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,p1.DICTNAME as PROTYPE,orderno
+		FROM T_DGGL_SNJH_HD_RCTM p 
+		join EOS_DICT_ENTRY p1 on p.PROTYPE = p1.DICTID
+		where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+	<select id="getProtype7" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,PROTYPE,orderno
+		FROM T_DGGL_SNJH_CGD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno
+		FROM T_DGGL_SNJH_CGD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+	<select id="getProtype8" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from (		
+		select t.PROTYPE "name",t.PROTYPE "id",null "type",'true' "expanded",
+		null "code",null "parentid",null sortno,orderno from (
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE ORDER BY orderno desc ) AS RNUM,PROTYPE,orderno
+		FROM T_DGGL_SNJH_CGD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		) A WHERE <![CDATA[RNUM < 2]]>)t
+		union all
+		select distinct t1.PARTS,'1' "id",null "type",null "expanded",null "code",t1.PROTYPE "parentid",null sortno	,orderno
+		from(	
+		select * from (				
+		SELECT ROW_NUMBER() OVER ( PARTITION  BY PROTYPE,PARTS ORDER BY orderno desc ) AS RNUM,PARTS,PROTYPE,orderno
+		FROM T_DGGL_SNJH_CGD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		)B WHERE <![CDATA[RNUM < 2]]>)t1)t2 order by orderno
+	</select>
+	
+    <select id="getPartsDataByProtype" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		SELECT ID,PARTS FROM T_DGGL_ENTRY WHERE PROTYPE = #value#;  
+	</select>
+	
+	<select id="getBaseCircle" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select cstart,cend from T_DXGL_ZQCONTROLL where JDID =  #baseid# and JZID = #crewid# and isdelete = 0;
+	</select>
+	<select id="getRCBaseCircle" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select rcstart,rcend from T_DXGL_ZQCONTROLL where JDID =  #baseid# and JZID = #crewid# and isdelete = 0;
+	</select>
+	<select id="deleteRecoversData" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_ENTRY where id = #value#
+	</select>
+	<select id="deleteRecoversData2" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_DAILY where id = #value#
+	</select>
+	<select id="deleteRecoversData3" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_GFFFD_DXTM where id = #value#
+	</select>
+	<select id="deleteRecoversData4" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_GFFFD_RCTM where id = #value#
+	</select>
+	<select id="deleteRecoversData5" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_SNJH_HD_DXTM where id = #value#
+	</select>
+	<select id="deleteRecoversData6" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_SNJH_HD_RCTM where id = #value#
+	</select>
+	<select id="deleteRecoversData7" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_SNJH_CGD_DXTM where id = #value#
+	</select>
+	<select id="deleteRecoversData8" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_SNJH_CGD_RCTM where id = #value#
+	</select>
+	<select id="getCountForEdition"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_EDITION;
+	</select>
+	<select id="getCountForEdition2"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_EDITION2;
+	</select>
+	<select id="getCountForEdition3"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_DGFFD_EDITION;
+	</select>
+	<select id="getCountForEdition4"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_DGFFD_EDITION2;
+	</select>
+	<select id="getCountForEdition5"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_SNJH_HD_EDITION;
+	</select>
+	<select id="getCountForEdition6"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_SNJH_HD_EDITION2;
+	</select>
+	<select id="getCountForEdition7"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_SNJH_CGDDX_EDITION;
+	</select>
+	<select id="getCountForEdition8"  resultClass="commonj.sdo.DataObject">
+		 select top 1 count(*) over() CNT  from T_DGGL_SNJH_CGDRC_EDITION;
+	</select>
+	
+	
+	<select id="getJCJHdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdBOSS where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdCRG where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdFM where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdGD where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdRQ where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_TzyjcjhhdZC where tasklist = #detailed# and crew = #crew# and isdelete = 0;
+	</select>
+	
+	<select id="getJCJHRCdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcBOSS where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcCRG where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcFM where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcGD where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcRQ where tasklist = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_DGGL_TzyjcjhrcZC where tasklist = #detailed# and crew = #crew# and isdelete = 0;
+	</select>
+	
+	
+	<select id="getJCJHCGDdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_CGN_Cgdty where rwqd = #detailed# and jz = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_CGN_Cgdylgd where rwqd = #detailed# and jz = #crew# and isdelete = 0
+	</select>
+	
+	<select id="getJCJHRCCGDdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_CGN_Cgdylgdrc where rwqd = #detailed# and jz = #crew# and isdelete = 0
+		union all
+		select c1991,c1992,c1993,c1994,c1995,c1996,c1997,c1998,c1999,c2000,c2001,c2002,c2003,c2004,c2005,c2006,c2007,c2008,c2009,c2010,c2011,c2012,c2013,c2014,c2015,c2016,c2017,c2018,c2019,c2020,c2021,c2022,c2023,c2024,c2025,c2026,c2027,c2028,c2029,c2030,c2031,c2032,c2033,c2034,c2035,c2036,c2037,c2038,c2039,c2040,c2041,c2042,c2043,c2044,c2045,c2046,c2047,c2048,c2049,c2050,c2051,c2052,c2053,c2054,c2055,c2056,c2057,c2058,c2059,c2060,c2061,c2062,c2063,c2064,c2065,c2066,c2067,c2068,c2069,c2070,c2071,c2072,c2073,c2074,c2075,c2076,c2077,c2078,c2079,c2080,c2081,c2082,c2083,c2084,c2085,c2086,c2087,c2088,c2089 from T_CGN_Cgdtyrc where rwqd = #detailed# and jz = #crew# and isdelete = 0
+	</select>
+	
+	
+	
+	<select id="getDGDXdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_ENTRY where detailed = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from T_DGGL_GFFFD_DXTM where detailed = #detailed# and crew = #crew#  and isdelete = 0;
+	</select>
+	
+	<select id="getDGRCdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select n1991,n1992,n1993,n1994,n1995,n1996,n1997,n1998,n1999,n2000,n2001,n2002,n2003,n2004,n2005,n2006,n2007,n2008,n2009,n2010,n2011,n2012,n2013,n2014,n2015,n2016,n2017,n2018,n2019,n2020,n2021,n2022,n2023,n2024,n2025,n2026,n2027,n2028,n2029,n2030,n2031,n2032,n2033,n2034,n2035,n2036,n2037,n2038,n2039,n2040,n2041,n2042,n2043,n2044,n2045,n2046,n2047,n2048,n2049,n2050,n2051,n2052,n2053,n2054,n2055,n2056,n2057,n2058,n2059,n2060,n2061,n2062,n2063,n2064,n2065,n2066,n2067,n2068,n2069,n2070,n2071,n2072,n2073,n2074,n2075,n2076,n2077,n2078,n2079,n2080,n2081,n2082,n2083,n2084,n2085,n2086,n2087,n2088,n2089 from T_DGGL_DAILY where detailed = #detailed# and crew = #crew# and isdelete = 0
+		union all
+		select n1991,n1992,n1993,n1994,n1995,n1996,n1997,n1998,n1999,n2000,n2001,n2002,n2003,n2004,n2005,n2006,n2007,n2008,n2009,n2010,n2011,n2012,n2013,n2014,n2015,n2016,n2017,n2018,n2019,n2020,n2021,n2022,n2023,n2024,n2025,n2026,n2027,n2028,n2029,n2030,n2031,n2032,n2033,n2034,n2035,n2036,n2037,n2038,n2039,n2040,n2041,n2042,n2043,n2044,n2045,n2046,n2047,n2048,n2049,n2050,n2051,n2052,n2053,n2054,n2055,n2056,n2057,n2058,n2059,n2060,n2061,n2062,n2063,n2064,n2065,n2066,n2067,n2068,n2069,n2070,n2071,n2072,n2073,n2074,n2075,n2076,n2077,n2078,n2079,n2080,n2081,n2082,n2083,n2084,n2085,n2086,n2087,n2088,n2089 from T_DGGL_GFFFD_RCTM where detailed = #detailed# and crew = #crew#  and isdelete = 0;
+	</select>
+	<select id="plancomplete" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		 select * from T_DGGL_ENTRY where id in(#value#) and isdelete = 0;
+	</select>
+	
+	<select id="getStatus" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		select DICTID as id,DICTNAME as name from EOS_DICT_ENTRY where DICTTYPEID = #value#
+	</select>
+	
+	<select id="pitchonInforMation" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		 select * from T_DGGL_ENTRY where isdelete = 0
+	</select>
+	
+	<select id="getNDJHTZ" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from T_DGGL_NDJHHD_DX where base = #baseid# and crew = #crewid# and lc = #lc# 
+	</select>
+	
+	<select id="getNDJHRCTZ" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from T_DGGL_NDJHHD_RC where base = #baseid# and crew = #crewid# and lc = #lc# 
+	</select>
+	
+	<select id="getNDJHCGDDXTZ" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from T_DGGL_NDJHCGD_DX where base = #baseid# and crew = #crewid# and lc = #lc# 
+	</select>
+	
+	<select id="getNDJHCGDRCTZ" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from T_DGGL_NDJHCGD_RC where base = #baseid# and crew = #crewid# and lc = #lc# 
+	</select>
+	
+	<select id="delNDJHTZ" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_NDJHHD_JHSC where processinstid = #id#
+	</select>
+	
+	<select id="delNDJHRCTZ" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_NDJHHDRC_JHSC where processinstid = #id#
+	</select>
+	
+	<select id="delNDJHCGDDXTZ" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_NDJHCGDDX_JHSC where processinstid = #id#
+	</select>
+	
+	<select id="delNDJHCGDRCTZ" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		delete T_DGGL_NDJHCGDRC_JHSC where processinstid = #id#
+	</select>
+	
+	
+	<insert id="createNDJHHDDX" parameterClass="java.util.HashMap">
+		  insert into T_DGGL_NDJHHD_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno
+		) 
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范法定检查项目清单',null,#lc#,$lc$,orderno
+		from T_DGGL_SNJH_HD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范非法定检查项目清单',null,#lc#,$lc$,orderno
+		from T_DGGL_SNJH_HD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,
+		site,parts,referencefigureno,itemno,approachmode,method,
+		program,tool,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,remark,'在役检查',null,#lc#,$lc$,orderno
+		from T_DGGL_ENTRY where template = 'zy' and isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,null,parts,referencefigureno,
+		itemno,null,null,null,null,mapno,medium,operatingpressure,designpressure,
+		testpressure,site,testprocedure,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		remark,'水压试验',null,#lc#,$lc$,orderno
+		from T_DGGL_ENTRY where template = 'sy' and isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,seat,parts,null,
+		itemno,approachmode,method,null,null,mapno,null,null,null,null,null,
+		null,prosource,null,executionunit,null,equipment,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		remark,'规范非法定在役检查细化表',null,#lc#,$lc$,orderno
+		from T_DGGL_GFFFD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,system,equipment,hfnumber,number,roomnumber,
+		null,null,ckt_dzhnumber,gxnumber,null,null,null,null,null,null,null,
+		null,null,null,null,remarks,'焊缝（管道/支撑）',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdGD where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,hfnumber,null,roomnumber,systemdevice,
+		category,ckt_dzhnumber,gxnumber,gj,bw,cl,null,null,null,null,null,null,
+		null,null,remarks,'焊缝（BOOS头）',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdBOSS where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,jjmode,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,system,null,null,null,roomnumber,null,null,
+		ckt_dzhnumber,gxnumber,null,null,null,bracenumber,pmcycle,pmcode,null,
+		null,null,null,null,remarks,'支撑/支架',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdZC where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,gnwz,null,null,
+		itemnumber,jjmode,jcmethod,jcprocedure,null,null,null,null,null,null,
+		jcbw,null,null,null,zxunit,system,equipment,null,null,roomnumber,null,
+		null,ckt_dzhnumber,gxnumber,null,null,null,null,pmcycle,pmcode,gfcycle,
+		null,null,null,null,remarks,'阀门',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdFM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,gnwz,null,sbnumber,
+		itemnumber,jjmode,jcmethod,jcprocedure,zytool,null,null,null,null,null,
+		jcbw,null,null,sbname,null,null,null,null,null,null,null,null,null,gkc,
+		null,null,null,null,null,null,null,null,null,null,null,
+		remarks,'容器和热交换器',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdRQ where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,sbname,null,system,sbnumber,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,columnsint,row,checktype,
+		jccycle,remarks,'传热管',null,#lc#,$lc$,orderno
+		from T_DGGL_TzyjcjhhdCRG where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	
+	
+	
+	<insert id="createNDJHHDRC" parameterClass="java.util.HashMap">
+		  insert into T_DGGL_NDJHHDRC_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno
+		) 
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范法定检查项目清单',null,#lc#,$lc$,orderno
+		from T_DGGL_SNJH_HD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范非法定检查项目清单',null,#lc#,$lc$,orderno
+		from T_DGGL_SNJH_HD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,
+		site,parts,referencefigureno,itemno,approachmode,method,
+		program,tool,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,remark,'在役检查',null,#lc#,$lc$,orderno
+		from T_DGGL_DAILY where template = 'zy' and isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,null,parts,referencefigureno,
+		itemno,null,null,null,null,mapno,medium,operatingpressure,designpressure,
+		testpressure,site,testprocedure,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		remark,'水压试验',null,#lc#,$lc$,orderno
+		from T_DGGL_DAILY where template = 'sy' and isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,seat,parts,null,
+		itemno,approachmode,method,null,null,mapno,null,null,null,null,null,
+		null,prosource,null,executionunit,null,equipment,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		remark,'规范非法定在役检查细化表',null,#lc#,$lc$,orderno
+		from T_DGGL_GFFFD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,system,equipment,hfnumber,number,roomnumber,
+		null,null,ckt_dzhnumber,gxnumber,null,null,null,null,null,null,null,
+		null,null,null,null,remarks,'焊缝（管道/支撑）',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcGD where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,hfnumber,null,roomnumber,systemdevice,
+		category,ckt_dzhnumber,gxnumber,gj,bw,cl,null,null,null,null,null,null,
+		null,null,remarks,'焊缝（BOOS头）',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcBOSS where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,jjmode,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,system,null,null,null,roomnumber,null,null,
+		ckt_dzhnumber,gxnumber,null,null,null,bracenumber,pmcycle,pmcode,null,
+		null,null,null,null,remarks,'支撑/支架',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcZC where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,gnwz,null,null,
+		itemnumber,jjmode,jcmethod,jcprocedure,null,null,null,null,null,null,
+		jcbw,null,null,null,zxunit,system,equipment,null,null,roomnumber,null,
+		null,ckt_dzhnumber,gxnumber,null,null,null,null,pmcycle,pmcode,gfcycle,
+		null,null,null,null,remarks,'阀门',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcFM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,gnwz,null,sbnumber,
+		itemnumber,jjmode,jcmethod,jcprocedure,zytool,null,null,null,null,null,
+		jcbw,null,null,sbname,null,null,null,null,null,null,null,null,null,gkc,
+		null,null,null,null,null,null,null,null,null,null,null,
+		remarks,'容器和热交换器',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcRQ where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,tasklist,checkprojectname,null,null,null,
+		itemnumber,null,jcmethod,jcprocedure,null,null,null,null,null,null,
+		null,null,null,sbname,null,system,sbnumber,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,columnsint,row,checktype,
+		jccycle,remarks,'传热管',null,#clc#,$clc$,orderno
+		from T_DGGL_TzyjcjhrcCRG where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	
+	
+	<insert id="createNDJHCGDDX" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDDX_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno
+		)
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,equipmentno,
+		null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,'检查项目清单',#lc#,$lc$,orderno
+		from T_DGGL_SNJH_CGD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,rwqd,null,null,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,null,null,null,null,null,bz,'通用',#lc#,$lc$,orderno
+		from T_CGN_Cgdty where isdelete = 0 and jd=#baseid# and jz=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,rwqd,null,null,gl,xt,gxh,null,
+		cz,null,null,null,null,null,lct,null,fac,jcbw,jcsl,utbw,utsl,bz,'压力管道',#lc#,$lc$,orderno
+		from T_CGN_Cgdylgd where isdelete = 0 and jd=#baseid# and jz=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	
+	<insert id="createNDJHCGDRC" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDRC_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno
+		)
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,equipmentno,
+		null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,'检查项目清单',#lc#,$lc$,orderno
+		from T_DGGL_SNJH_CGD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,rwqd,null,null,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,null,null,null,null,null,bz,'通用',#clc#,$clc$,orderno
+		from T_CGN_Cgdtyrc where isdelete = 0 and jd=#baseid# and jz=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,rwqd,null,null,gl,xt,gxh,null,
+		cz,null,null,null,null,null,lct,null,fac,jcbw,jcsl,utbw,utsl,bz,'压力管道',#clc#,$clc$,orderno
+		from T_CGN_Cgdylgdrc where isdelete = 0 and jd=#baseid# and jz=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$clc$ is not null and $clc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	<select id="getNDJHMapNo" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from T_CGN_DGGL_CKTLGL where CKTLBH in(
+		select distinct referencefigureno from $tablename$ 
+		where referencefigureno is not null and processinstid = #processinstid#)
+		and fildid is not null and jd=#base# and jzid=#crew#
+	</select>
+	
+	<select id="getZYJCJHDXMap" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select uuid,type from T_DGGL_TzyjcjhhdBOSS where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid,type from T_DGGL_TzyjcjhhdCRG where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid,type from T_DGGL_TzyjcjhhdFM where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid,type from T_DGGL_TzyjcjhhdGD where tasklist =  #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid,type from T_DGGL_TzyjcjhhdRQ where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid,type from T_DGGL_TzyjcjhhdZC where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+	</select>
+	
+	<select id="getZYJCJHRCMap" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select uuid from T_DGGL_TzyjcjhrcBOSS where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid from T_DGGL_TzyjcjhrcCRG where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid from T_DGGL_TzyjcjhrcFM where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid from T_DGGL_TzyjcjhrcGD where tasklist =  #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid from T_DGGL_TzyjcjhrcRQ where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+		union all
+		select uuid from T_DGGL_TzyjcjhrcZC where tasklist = #tasklist# and base = #base# and crew = #crew# and isdelete = 0
+	</select>
+	
+	
+	<select id="getJCCXMap" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select distinct program from $tablename$ where processinstid = #processinstid# and program is not null and program != ''
+		union all
+		select distinct testprocedure from $tablename$ where processinstid = #processinstid# and testprocedure is not null and testprocedure != ''
+	</select>
+	
+	<select id="getZYGJMap" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select distinct tool from $tablename$ where processinstid = #processinstid# and tool is not null and tool != ''
+	</select>
+	
+	
+	<select id="getNDJHDXdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select id,C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C49,C50,C51,C52,C53,C54,C55,C56,C57,C58,C59,C60 from $tablename$ where detailed = #detailed# and crew = #crew# and isdelete = 0
+	</select>
+	
+	<select id="getNDJHRCdata" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select id,n1991,n1992,n1993,n1994,n1995,n1996,n1997,n1998,n1999,n2000,n2001,n2002,n2003,n2004,n2005,n2006,n2007,n2008,n2009,n2010,n2011,n2012,n2013,n2014,n2015,n2016,n2017,n2018,n2019,n2020,n2021,n2022,n2023,n2024,n2025,n2026,n2027,n2028,n2029,n2030,n2031,n2032,n2033,n2034,n2035,n2036,n2037,n2038,n2039,n2040,n2041,n2042,n2043,n2044,n2045,n2046,n2047,n2048,n2049,n2050,n2051,n2052,n2053,n2054,n2055,n2056,n2057,n2058,n2059,n2060,n2061,n2062,n2063,n2064,n2065,n2066,n2067,n2068,n2069,n2070,n2071,n2072,n2073,n2074,n2075,n2076,n2077,n2078,n2079,n2080,n2081,n2082,n2083,n2084,n2085,n2086,n2087,n2088,n2089 from $tablename$ where detailed = #detailed# and crew = #crew# and isdelete = 0
+	</select>
+	
+	<select id="getDataByOrderno" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select * from $tablename$ where <![CDATA[orderno > #start# and orderno < #end#]]> order by orderno;
+	</select>
+	
+	<select id="updateEdition" parameterClass="java.util.HashMap" > 
+       UPDATE $tablename$ SET  edition = #edition# where base=#base# and crew=#crew#;
+    </select>
+    
+    <select id="getNDJHtime"  parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject"> 
+       select createtime from T_DGGL_NDJHHD_JL where jd = #base# and jz = #crew# and lc = #lc# and ident = #ident# order by createtime desc;
+    </select>
+    
+    
+    <select id="fuzzyMatchingDictionary" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject"> 
+       select DICTID,DICTNAME from EOS_DICT_ENTRY where 1=1
+       <isNotNull property="DICTID">
+             and DICTID = #DICTID#
+       </isNotNull>
+    </select>
+    
+    
+    <insert id="createNDJHDXSNJH" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHD_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,ndorderno,
+		 workorder,mintenanceplan,mintenanceproject
+		) 
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范法定检查项目清单',null,#lc#,$lc$,orderno,orderno,workorder,
+		mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_HD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范非法定检查项目清单',null,#lc#,$lc$,orderno,orderno,workorder,
+		mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_HD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFFD'
+		</isNotEmpty>
+	</insert>
+    
+    
+    <insert id="createNDJHDXDG" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHD_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,inspectplan,ndorderno
+		) 
+		select newId() id,'$uuid$' uuid,t.detailed,t.inspectionscope,
+		t.detectedsite,t.parts,t.referencefigureno,t.itemno,t.approachmode,t.method,
+		t.program,t.tool,t.mapno,t.medium,t.operatingpressure,t.designpressure,
+		t.testpressure,t.site,t.testprocedure,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,t.remark,
+		case t.template when 'zy' then '在役检查' else '水压试验' end,null,#lc#,$lc$,t.ORDERNO,t.inspectplan,t1.orderno
+		from T_DGGL_ENTRY t
+		left join T_DGGL_NDJHHD_JHSC t1 on t.DETAILED = t1.DETAILED 
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0 and t1.IDENT = '规范法定检查项目清单'
+		and t1.PROCESSINSTID=#uuid#
+		union all
+		select newId() id,'$uuid$' uuid,t.detailed,t.inspectionscope,t.seat,t.parts,null,
+		t.itemno,t.approachmode,t.method,null,null,t.mapno,null,null,null,null,null,
+		null,t.prosource,null,t.executionunit,null,t.equipment,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		t.remark,'规范非法定在役检查细化表',null,#lc#,$lc$,t.ORDERNO,t.inspectplan,t1.orderno
+		from T_DGGL_GFFFD_DXTM t
+		left join T_DGGL_NDJHHD_JHSC t1 on t.DETAILED = t1.DETAILED 
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0 and t1.IDENT = '规范非法定检查项目清单' 
+		and t1.PROCESSINSTID=#uuid#
+	</insert>
+	
+	
+	<insert id="createNDJHDXZY" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHD_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,ndorderno
+		) 
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,t.system,t.equipment,t.hfnumber,t.number,t.roomnumber,
+		null,null,t.ckt_dzhnumber,t.gxnumber,null,null,null,null,null,null,null,
+		null,null,null,null,t.remarks,'焊缝（管道/支撑）',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdGD t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,t.hfnumber,null,t.roomnumber,t.systemdevice,
+		t.category,t.ckt_dzhnumber,t.gxnumber,t.gj,t.bw,t.cl,null,null,null,null,null,null,
+		null,null,t.remarks,'焊缝（BOOS头）',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdBOSS t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,t.system,null,null,null,t.roomnumber,null,null,
+		t.ckt_dzhnumber,t.gxnumber,null,null,null,t.bracenumber,t.pmcycle,t.pmcode,null,
+		null,null,null,null,t.remarks,'支撑/支架',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdZC t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,t.gnwz,null,null,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		t.jcbw,null,null,null,t.zxunit,t.system,t.equipment,null,null,t.roomnumber,null,
+		null,t.ckt_dzhnumber,t.gxnumber,null,null,null,null,t.pmcycle,t.pmcode,t.gfcycle,
+		null,null,null,null,t.remarks,'阀门',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdFM t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,t.gnwz,null,t.sbnumber,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,t.zytool,null,null,null,null,null,
+		t.jcbw,null,null,t.sbname,null,null,null,null,null,null,null,null,null,t.gkc,
+		null,null,null,null,null,null,null,null,null,null,null,
+		t.remarks,'容器和热交换器',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdRQ t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,t.sbname,null,t.system,t.sbnumber,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,t.columnsint,t.row,t.checktype,
+		t.jccycle,t.remarks,'传热管',null,#lc#,$lc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhhdCRG t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHD_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+	</insert>
+	
+	
+	
+	<insert id="createNDJHRCSNJH" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHDRC_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,ndorderno,
+		 workorder,mintenanceplan,mintenanceproject
+		) 
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范法定检查项目清单',null,#lc#,$lc$,orderno,orderno,workorder,
+		mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_HD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFD'
+		</isNotEmpty>
+		union all
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,site,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,'规范非法定检查项目清单',null,#lc#,$lc$,orderno,orderno,workorder,
+		mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_HD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != '' and protype = 'GFFFD'
+		</isNotEmpty>
+	</insert>
+    
+    
+    <insert id="createNDJHRCDG" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHDRC_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,inspectplan,ndorderno
+		) 
+		select newId() id,'$uuid$' uuid,t.detailed,t.inspectionscope,
+		t.detectedsite,t.parts,t.referencefigureno,t.itemno,t.approachmode,t.method,
+		t.program,t.tool,t.mapno,t.medium,t.operatingpressure,t.designpressure,
+		t.testpressure,t.site,t.testprocedure,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,t.remark,
+		case t.template when 'zy' then '在役检查' else '水压试验' end,null,#lc#,$lc$,t.ORDERNO,t.inspectplan,t1.orderno
+		from T_DGGL_DAILY t
+		left join T_DGGL_NDJHHDRC_JHSC t1 on t.DETAILED = t1.DETAILED 
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0 and t1.IDENT = '规范法定检查项目清单'
+		and t1.PROCESSINSTID=#uuid#
+		union all
+		select newId() id,'$uuid$' uuid,t.detailed,t.inspectionscope,t.seat,t.parts,null,
+		t.itemno,t.approachmode,t.method,null,null,t.mapno,null,null,null,null,null,
+		null,t.prosource,null,t.executionunit,null,t.equipment,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+		t.remark,'规范非法定在役检查细化表',null,#lc#,$lc$,t.ORDERNO,t.inspectplan,t1.orderno
+		from T_DGGL_GFFFD_RCTM t
+		left join T_DGGL_NDJHHDRC_JHSC t1 on t.DETAILED = t1.DETAILED 
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0 and t1.IDENT = '规范非法定检查项目清单'
+		and t1.PROCESSINSTID=#uuid#
+	</insert>
+	
+	
+	<insert id="createNDJHRCZY" parameterClass="java.util.HashMap">
+		insert into T_DGGL_NDJHHDRC_JHSC(id,processinstid,
+		 detailed,inspectionscope,seat,parts,referencefigureno,
+		 itemno,approachmode,method,program,tool,mapno,medium,
+		 operatingpressure,designpressure,testpressure,site,
+		 testprocedure,prosource,equipmentname,executionunit,
+		 system,equipment,hfnumber,number,roomnumber,systemdevice,
+		 category,ckt_dzhnumber,gxnumber,gj,bw,cl,bracenumber,
+		 pmcycle,pmcode,gfcycle,columnsint,row,checktype,jccycle,remark,ident,gdh,lc,lcv,orderno,ndorderno
+		) 
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,t.system,t.equipment,t.hfnumber,t.number,t.roomnumber,
+		null,null,t.ckt_dzhnumber,t.gxnumber,null,null,null,null,null,null,null,
+		null,null,null,null,t.remarks,'焊缝（管道/支撑）',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcGD t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,null,null,t.hfnumber,null,t.roomnumber,t.systemdevice,
+		t.category,t.ckt_dzhnumber,t.gxnumber,t.gj,t.bw,t.cl,null,null,null,null,null,null,
+		null,null,t.remarks,'焊缝（BOOS头）',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcBOSS t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,null,null,t.system,null,null,null,t.roomnumber,null,null,
+		t.ckt_dzhnumber,t.gxnumber,null,null,null,t.bracenumber,t.pmcycle,t.pmcode,null,
+		null,null,null,null,t.remarks,'支撑/支架',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcZC t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,t.gnwz,null,null,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		t.jcbw,null,null,null,t.zxunit,t.system,t.equipment,null,null,t.roomnumber,null,
+		null,t.ckt_dzhnumber,t.gxnumber,null,null,null,null,t.pmcycle,t.pmcode,t.gfcycle,
+		null,null,null,null,t.remarks,'阀门',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcFM t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,t.gnwz,null,t.sbnumber,
+		t.itemnumber,t.jjmode,t.jcmethod,t.jcprocedure,t.zytool,null,null,null,null,null,
+		t.jcbw,null,null,t.sbname,null,null,null,null,null,null,null,null,null,t.gkc,
+		null,null,null,null,null,null,null,null,null,null,null,
+		t.remarks,'容器和热交换器',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcRQ t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+		union all
+		select newId() id,'$uuid$' uuid,t.tasklist,t.checkprojectname,null,null,null,
+		t.itemnumber,null,t.jcmethod,t.jcprocedure,null,null,null,null,null,null,
+		null,null,null,t.sbname,null,t.system,t.sbnumber,null,null,null,null,null,
+		null,null,null,null,null,null,null,null,null,t.columnsint,t.row,t.checktype,
+		t.jccycle,t.remarks,'传热管',null,#clc#,$clc$,t.orderno,t1.ndorderno
+		from T_DGGL_TzyjcjhrcCRG t
+		join (select distinct DETAILED,ndorderno from T_DGGL_NDJHHDRC_JHSC where inspectplan = 'y' and PROCESSINSTID=#uuid#) t1
+		on t.tasklist = t1.detailed
+		where t.base=#baseid# and t.crew=#crewid# and t.ISDELETE = 0
+	</insert>
+	
+	
+	
+	<insert id="createNDJHCGDDXSNJH" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDDX_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno,inspectplan,ndorderno,
+		workorder,mintenanceplan,mintenanceproject
+		)
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,equipmentno,
+		null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,'检查项目清单',#lc#,$lc$,orderno,inspectplan,orderno,
+		workorder,mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_CGD_DXTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	
+	<insert id="createNDJHCGDDXZY" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDDX_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno,ndorderno
+		)
+		select newId() id,'$uuid$' uuid,t.rwqd,null,null,t.gl,t.xt,t.gxh,t.zysb,
+		t.cz,t.gczj,t.wj,t.mybh,t.jk,t.ck,t.lct,t.jcbw,null,null,null,null,null,t.bz,'通用',#lc#,$lc$,t.orderno,t1.orderno
+		from T_CGN_Cgdty t
+		left join T_DGGL_NDJHCGDDX_JHSC t1 on t.rwqd = t1.rwqd 
+		where t.jd=#baseid# and t.jz=#crewid# and t.ISDELETE = 0 and t1.inspectplan = 'y'
+		and t1.PROCESSINSTID=#uuid#
+		union all
+		select newId() id,'$uuid$' uuid,t.rwqd,null,null,t.gl,t.xt,t.gxh,null,
+		t.cz,null,null,null,null,null,t.lct,null,t.fac,t.jcbw,t.jcsl,t.utbw,t.utsl,t.bz,'压力管道',#lc#,$lc$,t.orderno,t1.orderno
+		from T_CGN_Cgdylgd t
+		left join T_DGGL_NDJHCGDDX_JHSC t1 on t.rwqd = t1.rwqd 
+		where t.jd=#baseid# and t.jz=#crewid# and t.ISDELETE = 0 and t1.inspectplan = 'y'
+		and t1.PROCESSINSTID=#uuid#
+	</insert>
+		
+		
+		
+	<insert id="createNDJHCGDRCSNJH" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDRC_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno,inspectplan,ndorderno
+		workorder,mintenanceplan,mintenanceproject
+		)
+		select newId() id,'$uuid$' uuid,detailed,inspectionscope,equipmentno,
+		null,null,null,null,null,null,null,null,null,null,null,null,
+		null,null,null,null,null,null,'检查项目清单',#lc#,$lc$,orderno,inspectplan,orderno,
+		workorder,mintenanceplan,mintenanceproject
+		from T_DGGL_SNJH_CGD_RCTM where isdelete = 0 and base=#baseid# and crew=#crewid#
+		<isNotEmpty prepend="AND " property="lc">
+			$lc$ is not null and $lc$ != ''
+		</isNotEmpty>
+	</insert>
+	
+	
+	<insert id="createNDJHCGDRCZY" parameterClass="java.util.HashMap">
+		 insert into T_DGGL_NDJHCGDRC_JHSC(
+		id,processinstid,rwqd,checkprojectname,gnwz,gl,xt,gxh,zysb,
+		cz,gczj,wj,mybh,jk,ck,lct,jcbw,fac,chbw,chsl,utbw,utsl,bz,ident,lc,lcv,orderno,ndorderno
+		)
+		select newId() id,'$uuid$' uuid,t.rwqd,null,null,t.gl,t.xt,t.gxh,t.zysb,
+		t.cz,t.gczj,t.wj,t.mybh,t.jk,t.ck,t.lct,t.jcbw,null,null,null,null,null,t.bz,'通用',#clc#,$clc$,t.orderno,t1.orderno
+		from T_CGN_Cgdtyrc t
+		left join T_DGGL_NDJHCGDRC_JHSC t1 on t.rwqd = t1.rwqd 
+		where t.jd=#baseid# and t.jz=#crewid# and t.ISDELETE = 0 and t1.inspectplan = 'y'
+		and t1.PROCESSINSTID=#uuid#
+		union all
+		select newId() id,'$uuid$' uuid,t.rwqd,null,null,t.gl,t.xt,t.gxh,null,
+		t.cz,null,null,null,null,null,t.lct,null,t.fac,t.jcbw,t.jcsl,t.utbw,t.utsl,t.bz,'压力管道',#clc#,$clc$,t.orderno,t1.orderno
+		from T_CGN_Cgdylgdrc t
+		left join T_DGGL_NDJHCGDRC_JHSC t1 on t.rwqd = t1.rwqd 
+		where t.jd=#baseid# and t.jz=#crewid# and t.ISDELETE = 0 and t1.inspectplan = 'y'
+		and t1.PROCESSINSTID=#uuid#
+	</insert>
+	
+	<select id="getOverhaulSequence" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		select distinct xh as id,xh as name from T_DXGL_DXRL where jdid = #value# and isdelete = 0
+	</select>
+	
+</sqlMap>

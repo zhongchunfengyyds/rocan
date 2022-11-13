@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Require-Bundle: com.cgn.itmp.basecommon,com.primeton.eos.richweb,com.e
+ os.foundation,com.eos.workflow,com.cgn.components.coframe.tagauth,org
+ .cgn.components.coframe.framework,com.cgn.components.coframe.taskcent
+ er,org.cgn.components.coframe.auth,com.cgn.components.coframe.tools,c
+ om.cgn.components.coframe.interfaces
+Bundle-Vendor: rocan
+eos-webCtxPath: base
+Bundle-Version: 1.0.0
+Bundle-Name: 参考图例、程序、专用工具管理
+Bundle-Description: 参考图例、程序、专用工具管理
+Bundle-SymbolicName: com.cgn.itmp.outlineandplan.base
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sca="http://www.springframework.org/schema/sca" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/sca http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+    <bean id="LegendManagementDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.outlineandplan.base.LegendManagementDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="ProgramManagementDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.outlineandplan.base.ProgramManagementDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="SpecialToolManagementDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.outlineandplan.base.SpecialToolManagementDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

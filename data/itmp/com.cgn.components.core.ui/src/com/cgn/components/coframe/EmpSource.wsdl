@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:ns0="http://lang.java" xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.primeton.com/EmpSource" xmlns:ns3="http://data.interfaces.coframe.components.gocom.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="EmpSourceService" targetNamespace="http://www.primeton.com/EmpSource">
+<wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://data.interfaces.coframe.components.gocom.org">
+<xsd:complexType name="TempVo">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="code" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="message" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="UserObjectExpand">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="attributes" nillable="true" type="ns2:string2stringMap"/>
+<xsd:element minOccurs="0" name="sessionId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="uniqueId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userMail" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userOrgId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userOrgName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userRealName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userRemoteIP" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfUserObjectExpand">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="UserObjectExpand" nillable="true" type="ns3:UserObjectExpand"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="OrgEmpSource">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="empcode" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="empcodename" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="empid" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="empname" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="expanded" type="ns1:boolean"/>
+<xsd:element minOccurs="0" name="isLeaf" type="ns1:boolean"/>
+<xsd:element minOccurs="0" name="orgid" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="orgname" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="parentorgid" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfOrgEmpSource">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="OrgEmpSource" nillable="true" type="ns3:OrgEmpSource"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="DataStructure_FLagMsg">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="flag" type="ns1:boolean"/>
+<xsd:element minOccurs="0" name="message" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="messageDetail" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="DataStructure_UserAuthorizeParam">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="roleid" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userid" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDataStructure_UserAuthorizeParam">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="DataStructure_UserAuthorizeParam" nillable="true" type="ns3:DataStructure_UserAuthorizeParam"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="DataStructure_FLagMsgExt">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="errorCode" type="ns1:int"/>
+<xsd:element minOccurs="0" name="errorMessage" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="flag" type="ns1:boolean"/>
+<xsd:element minOccurs="0" name="message" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="messageDetail" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="UserObjectExpandEmail">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="attributes" nillable="true" type="ns2:string2stringMap"/>
+<xsd:element minOccurs="0" name="sessionId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="uniqueId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userEmail" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userMail" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userOrgId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userOrgName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userRealName" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userRemoteIP" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="userTel" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfUserObjectExpandEmail">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="UserObjectExpandEmail" nillable="true" type="ns3:UserObjectExpandEmail"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="DataStructure_DeptInfoMsg">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="deptCode" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="deptStr" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="errMessageStr" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="flag" type="ns1:boolean"/>
+<xsd:element minOccurs="0" name="workDeptCode" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="workDeptStr" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="CapRoleSource">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="roleAppId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="roleCode" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="roleDesc" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="roleId" nillable="true" type="ns1:string"/>
+<xsd:element minOccurs="0" name="roleName" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfCapRoleSource">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="CapRoleSource" nillable="true" type="ns3:CapRoleSource"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.primeton.com/EmpSource">
+<xsd:element name="userRegister_Exception" type="ns0:Exception"/>
+<xsd:element name="userPasswordChange_Exception" type="ns0:Exception"/>
+<xsd:element name="userInfoUpdate_Exception" type="ns0:Exception"/>
+<xsd:element name="userAuthorize_Exception" type="ns0:Exception"/>
+<xsd:element name="userAuthorizeStr_Exception" type="ns0:Exception"/>
+<xsd:element name="userAuthorizeReset_Exception" type="ns0:Exception"/>
+<xsd:element name="getUserRoleList_Exception" type="ns0:Exception"/>
+<xsd:element name="getUserByWords_Exception" type="ns0:Exception"/>
+<xsd:element name="getUserAndOrgByWords_Exception" type="ns0:Exception"/>
+<xsd:element name="findUserInfos_Exception" type="ns0:Exception"/>
+<xsd:element name="findUserInfosExt_Exception" type="ns0:Exception"/>
+<xsd:element name="deleteRole_Exception" type="ns0:Exception"/>
+<xsd:element name="userPasswordReset_Exception" type="ns0:Exception"/>
+<xsd:element name="encryptPwd_Exception" type="ns0:Exception"/>
+<xsd:element name="decryptPwd_Exception" type="ns0:Exception"/>
+<xsd:element name="userRegisterNew_Exception" type="ns0:Exception"/>
+<xsd:element name="userPasswordChangeNew_Exception" type="ns0:Exception"/>
+<xsd:element name="userInfoUpdateNew_Exception" type="ns0:Exception"/>
+<xsd:element name="getEmpDeptInfoByUserId_Exception" type="ns0:Exception"/>
+<xsd:element name="userRegister">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in4" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in5" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in6" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in7" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in8" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in9" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in10" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userRegisterResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordChange">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordChangeResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userInfoUpdate">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in4" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userInfoUpdateResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorize">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="ns3:ArrayOfDataStructure_UserAuthorizeParam"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorizeResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorizeStr">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorizeStrResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorizeReset">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userAuthorizeResetResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserRoleList">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserRoleListResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:ArrayOfCapRoleSource"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserByWords">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserByWordsResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:ArrayOfOrgEmpSource"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserAndOrgByWords">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getUserAndOrgByWordsResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:ArrayOfOrgEmpSource"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="findUserInfos">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="ns2:ArrayOfString"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="findUserInfosResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:ArrayOfUserObjectExpand"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="findUserInfosExt">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="findUserInfosExtResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:ArrayOfUserObjectExpandEmail"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="deleteRole">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="deleteRoleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordReset">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordResetResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="encryptPwd">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="encryptPwdResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="decryptPwd">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="decryptPwdResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:TempVo"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userRegisterNew">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in4" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in5" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in6" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in7" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userRegisterNewResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsgExt"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordChangeNew">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userPasswordChangeNewResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsgExt"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userInfoUpdateNew">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in4" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="in5" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="userInfoUpdateNewResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_FLagMsgExt"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getEmpDeptInfoByUserId">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="getEmpDeptInfoByUserIdResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="out1" nillable="true" type="ns3:DataStructure_DeptInfoMsg"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:complexType name="string2stringMap">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="entry">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="key" type="ns1:string"/>
+<xsd:element maxOccurs="1" minOccurs="0" name="value" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfString">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="string" nillable="true" type="ns1:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://lang.java">
+<xsd:complexType name="Exception"/>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="decryptPwd">
+<wsdl:part element="ns2:decryptPwd" name="decryptPwd"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserByWordsResponse">
+<wsdl:part element="ns2:getUserByWordsResponse" name="getUserByWordsResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserAndOrgByWords_Exception">
+<wsdl:part element="ns2:getUserAndOrgByWords_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfosExt_Exception">
+<wsdl:part element="ns2:findUserInfosExt_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChange_Exception">
+<wsdl:part element="ns2:userPasswordChange_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="encryptPwd">
+<wsdl:part element="ns2:encryptPwd" name="encryptPwd"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordResetResponse">
+<wsdl:part element="ns2:userPasswordResetResponse" name="userPasswordResetResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserAndOrgByWordsResponse">
+<wsdl:part element="ns2:getUserAndOrgByWordsResponse" name="getUserAndOrgByWordsResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdate">
+<wsdl:part element="ns2:userInfoUpdate" name="userInfoUpdate"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserRoleList_Exception">
+<wsdl:part element="ns2:getUserRoleList_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserRoleList">
+<wsdl:part element="ns2:getUserRoleList" name="getUserRoleList"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="decryptPwd_Exception">
+<wsdl:part element="ns2:decryptPwd_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="deleteRoleResponse">
+<wsdl:part element="ns2:deleteRoleResponse" name="deleteRoleResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="encryptPwd_Exception">
+<wsdl:part element="ns2:encryptPwd_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChangeNewResponse">
+<wsdl:part element="ns2:userPasswordChangeNewResponse" name="userPasswordChangeNewResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdate_Exception">
+<wsdl:part element="ns2:userInfoUpdate_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorize">
+<wsdl:part element="ns2:userAuthorize" name="userAuthorize"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserAndOrgByWords">
+<wsdl:part element="ns2:getUserAndOrgByWords" name="getUserAndOrgByWords"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getEmpDeptInfoByUserId">
+<wsdl:part element="ns2:getEmpDeptInfoByUserId" name="getEmpDeptInfoByUserId"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeReset">
+<wsdl:part element="ns2:userAuthorizeReset" name="userAuthorizeReset"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeResponse">
+<wsdl:part element="ns2:userAuthorizeResponse" name="userAuthorizeResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfosResponse">
+<wsdl:part element="ns2:findUserInfosResponse" name="findUserInfosResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfos">
+<wsdl:part element="ns2:findUserInfos" name="findUserInfos"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeStrResponse">
+<wsdl:part element="ns2:userAuthorizeStrResponse" name="userAuthorizeStrResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfosExtResponse">
+<wsdl:part element="ns2:findUserInfosExtResponse" name="findUserInfosExtResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChangeNew">
+<wsdl:part element="ns2:userPasswordChangeNew" name="userPasswordChangeNew"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserRoleListResponse">
+<wsdl:part element="ns2:getUserRoleListResponse" name="getUserRoleListResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdateNew_Exception">
+<wsdl:part element="ns2:userInfoUpdateNew_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChange">
+<wsdl:part element="ns2:userPasswordChange" name="userPasswordChange"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdateResponse">
+<wsdl:part element="ns2:userInfoUpdateResponse" name="userInfoUpdateResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeStr">
+<wsdl:part element="ns2:userAuthorizeStr" name="userAuthorizeStr"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegisterResponse">
+<wsdl:part element="ns2:userRegisterResponse" name="userRegisterResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdateNew">
+<wsdl:part element="ns2:userInfoUpdateNew" name="userInfoUpdateNew"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordReset_Exception">
+<wsdl:part element="ns2:userPasswordReset_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="deleteRole">
+<wsdl:part element="ns2:deleteRole" name="deleteRole"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorize_Exception">
+<wsdl:part element="ns2:userAuthorize_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegisterNewResponse">
+<wsdl:part element="ns2:userRegisterNewResponse" name="userRegisterNewResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChangeNew_Exception">
+<wsdl:part element="ns2:userPasswordChangeNew_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getEmpDeptInfoByUserIdResponse">
+<wsdl:part element="ns2:getEmpDeptInfoByUserIdResponse" name="getEmpDeptInfoByUserIdResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfos_Exception">
+<wsdl:part element="ns2:findUserInfos_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="decryptPwdResponse">
+<wsdl:part element="ns2:decryptPwdResponse" name="decryptPwdResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordChangeResponse">
+<wsdl:part element="ns2:userPasswordChangeResponse" name="userPasswordChangeResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeReset_Exception">
+<wsdl:part element="ns2:userAuthorizeReset_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserByWords">
+<wsdl:part element="ns2:getUserByWords" name="getUserByWords"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="findUserInfosExt">
+<wsdl:part element="ns2:findUserInfosExt" name="findUserInfosExt"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegisterNew">
+<wsdl:part element="ns2:userRegisterNew" name="userRegisterNew"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeStr_Exception">
+<wsdl:part element="ns2:userAuthorizeStr_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userAuthorizeResetResponse">
+<wsdl:part element="ns2:userAuthorizeResetResponse" name="userAuthorizeResetResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userPasswordReset">
+<wsdl:part element="ns2:userPasswordReset" name="userPasswordReset"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="encryptPwdResponse">
+<wsdl:part element="ns2:encryptPwdResponse" name="encryptPwdResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegisterNew_Exception">
+<wsdl:part element="ns2:userRegisterNew_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegister">
+<wsdl:part element="ns2:userRegister" name="userRegister"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userInfoUpdateNewResponse">
+<wsdl:part element="ns2:userInfoUpdateNewResponse" name="userInfoUpdateNewResponse"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getEmpDeptInfoByUserId_Exception">
+<wsdl:part element="ns2:getEmpDeptInfoByUserId_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="deleteRole_Exception">
+<wsdl:part element="ns2:deleteRole_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getUserByWords_Exception">
+<wsdl:part element="ns2:getUserByWords_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="userRegister_Exception">
+<wsdl:part element="ns2:userRegister_Exception" name="Exception"> </wsdl:part>
+</wsdl:message>
+<wsdl:portType name="EmpSource">
+<wsdl:operation name="userRegister">
+<wsdl:input message="ns2:userRegister" name="userRegister"> </wsdl:input>
+<wsdl:output message="ns2:userRegisterResponse" name="userRegisterResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userRegister_Exception" name="userRegister_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordChange">
+<wsdl:input message="ns2:userPasswordChange" name="userPasswordChange"> </wsdl:input>
+<wsdl:output message="ns2:userPasswordChangeResponse" name="userPasswordChangeResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userPasswordChange_Exception" name="userPasswordChange_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userInfoUpdate">
+<wsdl:input message="ns2:userInfoUpdate" name="userInfoUpdate"> </wsdl:input>
+<wsdl:output message="ns2:userInfoUpdateResponse" name="userInfoUpdateResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userInfoUpdate_Exception" name="userInfoUpdate_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorize">
+<wsdl:input message="ns2:userAuthorize" name="userAuthorize"> </wsdl:input>
+<wsdl:output message="ns2:userAuthorizeResponse" name="userAuthorizeResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userAuthorize_Exception" name="userAuthorize_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorizeStr">
+<wsdl:input message="ns2:userAuthorizeStr" name="userAuthorizeStr"> </wsdl:input>
+<wsdl:output message="ns2:userAuthorizeStrResponse" name="userAuthorizeStrResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userAuthorizeStr_Exception" name="userAuthorizeStr_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorizeReset">
+<wsdl:input message="ns2:userAuthorizeReset" name="userAuthorizeReset"> </wsdl:input>
+<wsdl:output message="ns2:userAuthorizeResetResponse" name="userAuthorizeResetResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userAuthorizeReset_Exception" name="userAuthorizeReset_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserRoleList">
+<wsdl:input message="ns2:getUserRoleList" name="getUserRoleList"> </wsdl:input>
+<wsdl:output message="ns2:getUserRoleListResponse" name="getUserRoleListResponse"> </wsdl:output>
+<wsdl:fault message="ns2:getUserRoleList_Exception" name="getUserRoleList_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserByWords">
+<wsdl:input message="ns2:getUserByWords" name="getUserByWords"> </wsdl:input>
+<wsdl:output message="ns2:getUserByWordsResponse" name="getUserByWordsResponse"> </wsdl:output>
+<wsdl:fault message="ns2:getUserByWords_Exception" name="getUserByWords_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserAndOrgByWords">
+<wsdl:input message="ns2:getUserAndOrgByWords" name="getUserAndOrgByWords"> </wsdl:input>
+<wsdl:output message="ns2:getUserAndOrgByWordsResponse" name="getUserAndOrgByWordsResponse"> </wsdl:output>
+<wsdl:fault message="ns2:getUserAndOrgByWords_Exception" name="getUserAndOrgByWords_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="findUserInfos">
+<wsdl:input message="ns2:findUserInfos" name="findUserInfos"> </wsdl:input>
+<wsdl:output message="ns2:findUserInfosResponse" name="findUserInfosResponse"> </wsdl:output>
+<wsdl:fault message="ns2:findUserInfos_Exception" name="findUserInfos_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="findUserInfosExt">
+<wsdl:input message="ns2:findUserInfosExt" name="findUserInfosExt"> </wsdl:input>
+<wsdl:output message="ns2:findUserInfosExtResponse" name="findUserInfosExtResponse"> </wsdl:output>
+<wsdl:fault message="ns2:findUserInfosExt_Exception" name="findUserInfosExt_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="deleteRole">
+<wsdl:input message="ns2:deleteRole" name="deleteRole"> </wsdl:input>
+<wsdl:output message="ns2:deleteRoleResponse" name="deleteRoleResponse"> </wsdl:output>
+<wsdl:fault message="ns2:deleteRole_Exception" name="deleteRole_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordReset">
+<wsdl:input message="ns2:userPasswordReset" name="userPasswordReset"> </wsdl:input>
+<wsdl:output message="ns2:userPasswordResetResponse" name="userPasswordResetResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userPasswordReset_Exception" name="userPasswordReset_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="encryptPwd">
+<wsdl:input message="ns2:encryptPwd" name="encryptPwd"> </wsdl:input>
+<wsdl:output message="ns2:encryptPwdResponse" name="encryptPwdResponse"> </wsdl:output>
+<wsdl:fault message="ns2:encryptPwd_Exception" name="encryptPwd_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="decryptPwd">
+<wsdl:input message="ns2:decryptPwd" name="decryptPwd"> </wsdl:input>
+<wsdl:output message="ns2:decryptPwdResponse" name="decryptPwdResponse"> </wsdl:output>
+<wsdl:fault message="ns2:decryptPwd_Exception" name="decryptPwd_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userRegisterNew">
+<wsdl:input message="ns2:userRegisterNew" name="userRegisterNew"> </wsdl:input>
+<wsdl:output message="ns2:userRegisterNewResponse" name="userRegisterNewResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userRegisterNew_Exception" name="userRegisterNew_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordChangeNew">
+<wsdl:input message="ns2:userPasswordChangeNew" name="userPasswordChangeNew"> </wsdl:input>
+<wsdl:output message="ns2:userPasswordChangeNewResponse" name="userPasswordChangeNewResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userPasswordChangeNew_Exception" name="userPasswordChangeNew_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userInfoUpdateNew">
+<wsdl:input message="ns2:userInfoUpdateNew" name="userInfoUpdateNew"> </wsdl:input>
+<wsdl:output message="ns2:userInfoUpdateNewResponse" name="userInfoUpdateNewResponse"> </wsdl:output>
+<wsdl:fault message="ns2:userInfoUpdateNew_Exception" name="userInfoUpdateNew_Exception"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getEmpDeptInfoByUserId">
+<wsdl:input message="ns2:getEmpDeptInfoByUserId" name="getEmpDeptInfoByUserId"> </wsdl:input>
+<wsdl:output message="ns2:getEmpDeptInfoByUserIdResponse" name="getEmpDeptInfoByUserIdResponse"> </wsdl:output>
+<wsdl:fault message="ns2:getEmpDeptInfoByUserId_Exception" name="getEmpDeptInfoByUserId_Exception"> </wsdl:fault>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="EmpSourceBinding" type="ns2:EmpSource">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="userRegister">
+<soap:operation soapAction=""/>
+<wsdl:input name="userRegister">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userRegisterResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userRegister_Exception">
+<soap:fault name="userRegister_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordChange">
+<soap:operation soapAction=""/>
+<wsdl:input name="userPasswordChange">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userPasswordChangeResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userPasswordChange_Exception">
+<soap:fault name="userPasswordChange_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userInfoUpdate">
+<soap:operation soapAction=""/>
+<wsdl:input name="userInfoUpdate">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userInfoUpdateResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userInfoUpdate_Exception">
+<soap:fault name="userInfoUpdate_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorize">
+<soap:operation soapAction=""/>
+<wsdl:input name="userAuthorize">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userAuthorizeResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userAuthorize_Exception">
+<soap:fault name="userAuthorize_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorizeStr">
+<soap:operation soapAction=""/>
+<wsdl:input name="userAuthorizeStr">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userAuthorizeStrResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userAuthorizeStr_Exception">
+<soap:fault name="userAuthorizeStr_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userAuthorizeReset">
+<soap:operation soapAction=""/>
+<wsdl:input name="userAuthorizeReset">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userAuthorizeResetResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userAuthorizeReset_Exception">
+<soap:fault name="userAuthorizeReset_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserRoleList">
+<soap:operation soapAction=""/>
+<wsdl:input name="getUserRoleList">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getUserRoleListResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="getUserRoleList_Exception">
+<soap:fault name="getUserRoleList_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserByWords">
+<soap:operation soapAction=""/>
+<wsdl:input name="getUserByWords">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getUserByWordsResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="getUserByWords_Exception">
+<soap:fault name="getUserByWords_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getUserAndOrgByWords">
+<soap:operation soapAction=""/>
+<wsdl:input name="getUserAndOrgByWords">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getUserAndOrgByWordsResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="getUserAndOrgByWords_Exception">
+<soap:fault name="getUserAndOrgByWords_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="findUserInfos">
+<soap:operation soapAction=""/>
+<wsdl:input name="findUserInfos">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="findUserInfosResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="findUserInfos_Exception">
+<soap:fault name="findUserInfos_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="findUserInfosExt">
+<soap:operation soapAction=""/>
+<wsdl:input name="findUserInfosExt">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="findUserInfosExtResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="findUserInfosExt_Exception">
+<soap:fault name="findUserInfosExt_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="deleteRole">
+<soap:operation soapAction=""/>
+<wsdl:input name="deleteRole">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="deleteRoleResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="deleteRole_Exception">
+<soap:fault name="deleteRole_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordReset">
+<soap:operation soapAction=""/>
+<wsdl:input name="userPasswordReset">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userPasswordResetResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userPasswordReset_Exception">
+<soap:fault name="userPasswordReset_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="encryptPwd">
+<soap:operation soapAction=""/>
+<wsdl:input name="encryptPwd">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="encryptPwdResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="encryptPwd_Exception">
+<soap:fault name="encryptPwd_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="decryptPwd">
+<soap:operation soapAction=""/>
+<wsdl:input name="decryptPwd">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="decryptPwdResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="decryptPwd_Exception">
+<soap:fault name="decryptPwd_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userRegisterNew">
+<soap:operation soapAction=""/>
+<wsdl:input name="userRegisterNew">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userRegisterNewResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userRegisterNew_Exception">
+<soap:fault name="userRegisterNew_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userPasswordChangeNew">
+<soap:operation soapAction=""/>
+<wsdl:input name="userPasswordChangeNew">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userPasswordChangeNewResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userPasswordChangeNew_Exception">
+<soap:fault name="userPasswordChangeNew_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="userInfoUpdateNew">
+<soap:operation soapAction=""/>
+<wsdl:input name="userInfoUpdateNew">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="userInfoUpdateNewResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="userInfoUpdateNew_Exception">
+<soap:fault name="userInfoUpdateNew_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getEmpDeptInfoByUserId">
+<soap:operation soapAction=""/>
+<wsdl:input name="getEmpDeptInfoByUserId">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getEmpDeptInfoByUserIdResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="getEmpDeptInfoByUserId_Exception">
+<soap:fault name="getEmpDeptInfoByUserId_Exception" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="EmpSourceService">
+<wsdl:port binding="ns2:EmpSourceBinding" name="EmpSourcePort">
+<soap:address location="http://119.29.240.41:8090/auth/EmpSource"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

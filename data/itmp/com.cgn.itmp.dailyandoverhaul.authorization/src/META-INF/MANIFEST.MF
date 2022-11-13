@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Require-Bundle: com.cgn.itmp.basecommon,com.primeton.eos.richweb,com.e
+ os.foundation,com.eos.workflow,com.cgn.components.coframe.taskcenter,
+ org.cgn.components.coframe.auth,org.gocom.components.coframe.dict,com
+ .cgn.components.coframe.tagauth,com.cgn.components.coframe.tools,org.
+ cgn.components.coframe.framework,com.cgn.components.coframe.interface
+ s
+Bundle-Vendor: rocan
+eos-webCtxPath: authorization
+Bundle-Version: 1.0.0
+Bundle-Name: 资质与授权管理
+Bundle-Description: 日常与大修管理_资质与授权管理
+Bundle-SymbolicName: com.cgn.itmp.dailyandoverhaul.authorization
+

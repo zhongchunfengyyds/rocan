@@ -1,0 +1,199 @@
+<html>
+<head>
+		<title>Title</title>
+	    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <script type="text/javascript" src="../newcommon/nui/nui.js" ></script>
+		<script type="text/javascript" src="../newcommon/nui/locale/zh_CN.js" ></script>
+		<!-- <script type="text/javascript" src="../js/restfulapi_url.js" ></script> -->
+		<link rel="stylesheet" href="../css/cuc.css" />
+		<link rel="stylesheet" href="../css/apply.css" />
+		<link rel="stylesheet" href="../css/mdialog.css" />
+		<link rel="stylesheet" href="../css/organizationwidget.css" />
+		<script type="text/javascript" src="../js/mdialog.js" ></script>
+		<!-- <script type="text/javascript" src="../js/global.js"></script> -->
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <script src="../newcommon/scripts/html5shiv.min.js"></script>
+		  <script src="../newcommon/scripts/respond.min.js"></script>
+		<![endif]-->
+		<script>
+    	$(function(){
+    		//判断浏览器是否支持placeholder属性
+	    	supportPlaceholder = 'placeholder' in document.createElement('input');
+	    	placeholder = function(input){
+	    		var text = input.attr('placeholder');
+	    		defaultValue = input.defaultValue;
+	    		if(!defaultValue){
+	    			input.val(text).addClass("phcolor");
+	    		}
+	    		input.focus(function(){
+	    			if(input.val() == text){
+	    				$(this).val("");
+	    			}
+	    		});
+	    		input.blur(function(){
+	    			if(input.val() == ""){
+	    				$(this).val(text).addClass("phcolor");
+	    			}
+	    		})
+	    		//输入的字符不为灰色
+	    		input.keydown(function(){
+	    			$(this).removeClass("phcolor");
+	    		})
+	    	}
+	    	//当浏览器不支持placeholder属性时，调用placeholder函数
+    		if(!supportPlaceholder){
+    			$('input').each(function(){
+    				text = $(this).attr("placeholder");
+    				if(text && $(this).attr("type") == "text"){
+    					placeholder($(this));
+    				}
+    			})
+    		}
+    	})
+    </script>
+</head>
+<body style="display:block;height:100%;overflow-y: hidden;">
+	<div class="nui-toolbar nui-toobar-org-content">
+	  	<input id="key" class="form-control org-key-input" onkeydown="onKeyEnter()" placeholder="输入部门名称/编码查询"/>
+	  	<button class="btn btn-default toolbar-org-sea-btn" type="button" onclick="searchByKeyWord()">查询</button>
+	</div>
+	<div class="nui-fit" style="display:block;height:100%;">
+	    <ul id="tree1" class="nui-tree" style="width:100%;height:100%;" dataField="result.data"
+	    	allowAlternating="false" 
+	  		showTreeIcon="true" textField="orgName" idField="orgId" parentField="parentOrgId" resultAsTree="false"  
+	    	expandOnLoad="true" expandOnDblClick="false"
+	    	showCheckBox="false" showFolderCheckBox="true" showExpandButtons="true"
+	    	autoCheckParent="false" checkRecursive="false" onbeforeload="onBeforeTreeLoad" >
+	    </ul>
+	</div>
+	<div class="nui-toolbar toolbar-org-opr-div">
+	    <button class="btn btn-default toolbar-org-opr-btn" type="button" onclick="onOk()">确定</button>
+	    <span class="toolbar-org-opr-span"></span>
+	    <button class="btn btn-second toolbar-org-opr-btn"  type="button" onclick="onCancel()">取消</button>
+	</div>
+	<script type="text/javascript">
+		//var treeUrl = aep_omscenter_rest_api_getOrgTreeByLazy;
+		var treeUrl = "com.cgn.components.coframe.aep.usercenter.getOrganization.biz.ext";
+    	$("#tree1").attr("url",treeUrl);
+		var showCheckBox = getUrlParam("showCheckBox");
+		var initOrgId = "4285";//中广核集团
+		$("#tree1").attr("showCheckBox",showCheckBox);
+		nui.parse();
+    	var tree = nui.get("tree1");
+    	var pOrgs;
+    	var treeKeyword="";
+    	//初始化树
+    	function onBeforeTreeLoad(e) {
+			var tree = e.sender;    //树控件
+	        var node = e.node;      //当前节点
+	        var params = e.params;  //参数对象
+	        var orgId;
+	        var orgSeq;
+	        var key;
+	        if(node.orgId){
+	        	orgId = node.orgId;
+	        	orgSeq = node.orgSeq;
+	        	key = node.orgId;
+	        }else{
+	        	orgId = initOrgId;
+	        	orgSeq = "null";
+	        	key = 1;
+	        }
+	        params.orgId = orgId; //后台：request对象获取"orgId"
+	        params.orgSeq = orgSeq;//后台：request对象获取"orgSeq"
+	        
+	    }
+	    function GetData() {
+	    	var node;
+	    	if(showCheckBox == "true"){
+	    		node = tree.getCheckedNodes();//多选模式下时获取选中节点
+	    	}else if(showCheckBox == "false"){
+	    		node = tree.getSelectedNode();//单选模式下时获取选中节点
+	    	}
+    		return node;
+	    }
+	    //根据关键字搜索
+    function searchByKeyWord() {
+	    var keyword = $.trim($("#key").val());
+	    treeKeyword = keyword;
+	    if(keyword == ""){
+	    	var loadingTip = new LoadingBox({str:"加载中....",left:"40%",top:"10%"});
+	    	nui.ajax({
+					url:treeUrl,
+					type:"post",
+					data:{keyword:keyword,orgId:initOrgId},
+					async:true,
+					success:function(text){
+						if(text.result.data){
+							tree.loadList(text.result.data,"orgId","parentOrgId");//加载树的列表结构数据
+							loadingTip.destroy();
+						}else{
+							tree.loadList({},"orgId","parentOrgId");//加载树的列表结构数据
+							loadingTip.destroy();
+							new LoadingBox({str:"查询不到数据",left:"40%",top:"20%"});
+						}
+					}
+				});
+	    }else{
+		    if(keyword.length < 2){
+		    	alert("至少输入两个关键字！");
+		    	return;
+		    }
+	    	keyword = keyword.toLowerCase();
+	    	var loadingTip = new LoadingBox({str:"加载中....",left:"40%",top:"10%"});
+	    	nui.ajax({
+					url:treeUrl,
+					type:"post",
+					data:{keyword:keyword,orgId:initOrgId},/*"keyword="+keyword+"&orgId="+initOrgId+""*/
+					async:true,
+					success:function(text){
+						if(text.result.data){
+							tree.loadList(text.result.data,"orgId","parentOrgId");//加载树的列表结构数据
+							loadingTip.destroy();
+						}else{
+							tree.loadList({},"orgId","parentOrgId");//加载树的列表结构数据
+							loadingTip.destroy();
+							new LoadingBox({str:"查询不到数据",left:"40%",top:"20%"});
+						}
+					}
+			});
+    	}
+  	}
+		//回车事件
+		function onKeyEnter(event) {
+			//兼容IE 
+			event = event || window.event;
+			if(event.keyCode==13){
+	    		searchByKeyWord();
+	    	}
+		}
+		/* function onNodeDblClick(e) {
+    	onOk();
+		} */
+		function CloseWindow(action) {
+			if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+			else window.close();
+		}
+		function onOk() {
+			CloseWindow("ok");
+		}
+		function onCancel() {
+			CloseWindow("cancel");
+		}
+		//获取url中的参数
+		function getUrlParam (name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r!= null) {
+				return decodeURI(r[2]);
+			}else{
+				return null;
+			}
+		}
+	</script>
+</body>
+</html>

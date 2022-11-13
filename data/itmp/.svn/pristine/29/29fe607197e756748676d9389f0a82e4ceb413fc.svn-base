@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:train -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+    
+    
+ 	<select id="getwpqbyqualitynumber" parameterClass="java.util.List" resultClass="com.cgn.itmp.weldingmanagement.Quality.Quality">
+    	SELECT qualitynumber,state,wqp_statu FROM WELDING_QUALITY where isdel='0' 
+    	and qualitynumber in 
+    	<iterate open="(" close=")" conjunction=",">
+    	#qualitynumbers[]#
+    	</iterate>
+ 	</select>
+ 	
+ 	<select id="updatewqpstatu" parameterClass="java.util.List" resultClass="java.lang.String">
+ 		update WELDING_QUALITY set state='WQPYQX' 
+ 			where qualitynumber in
+ 			<iterate open="(" close=")" conjunction=",">
+    			#qualitynumbers[]#
+    		</iterate>
+ 	</select>
+ 	
+ 	<!-- 获取最大计划编号 -->
+ 	<select id="getqualitynumber" parameterClass="java.lang.String" resultClass="java.lang.String">
+ 			SELECT TOP 1 (qualitynumber) FROM WELDING_QUALITY where qualitynumber like #qualitynumber#+'%' order by qualitynumber desc
+ 	</select>
+ 	
+ 	<select id="getweldername" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+ 			select name as id, name from WELDING_WELDER where JD = #value# and isdel = 0
+ 	</select>
+ 	
+ 	<update id="updatewelderwqpnum" parameterClass="java.util.Map">
+ 			update WELDING_APPLY set qualitynumber=#qnum# where uuid=#uid#
+ 	
+ 	</update>
+ 	
+ 	<select id="getinfobyqualitynumber" parameterClass="java.lang.String" resultClass="com.cgn.itmp.weldingmanagement.Quality.Quality">
+			 	SELECT
+			 		wq.state,
+					wq.wqp_statu,
+					wq.qualitynumber,
+					wq.describe,
+					wq.form,
+					wq.level,
+					wq.major,
+					wq.position,
+					wq.ndtmethod_proportions,
+					wq.prewelder,
+					wq.solidwelder,
+					wq.chargeperson,
+					wq.fj,
+					wq.fildid,
+					wq.weldertype
+				FROM
+					WELDING_QUALITY wq
+				WHERE
+					wq.qualitynumber=#qualitynumber# AND wq.isdel = '0'
+ 	</select>
+ 	
+ 	<select id="getwelderqualitytype" parameterClass="java.lang.String" resultClass="java.lang.String">
+ 			SELECT
+						weldertype 
+					FROM
+						WELDING_QUALITY 
+					WHERE
+						WELDING_QUALITY.qualitynumber =# qualitynumber#
+ 	</select>
+ 	
+ 	<select id="getQualityOneSimple" parameterClass="java.lang.String" resultClass="com.cgn.itmp.weldingmanagement.Quality.Quality">
+ 			SELECT
+					uuid,rounds,qualitynumber,edition,applyno,ticketnumber,describe,position,assigned,fj,state,isdel,JD,
+					JZ,wqp_statu,level,form,major,ndtmethod_proportions,prewelder,solidwelder,chargeperson,createtime,
+					name,equiaxedgraph,weldnumber,cardnumber_edtion,welding_method,geographicalposition,model_specifications,batchnumber,
+					uppername,downname,component1interfacesize,component2interfacesize,component1interfacethickness,
+					component2interfacethickness,component1material,component2material,workingprocedure,processsteps,weldertype,dynamicgeneration,
+					name1,name2,name3,name4,value1,value2,value3,value4,applicant,applytime,examinant,auditor,reviewer,ccry,processinstid,fildid,scsj,fhsj,shsj
+				FROM
+				WELDING_QUALITY
+				
+				WHERE qualitynumber=#qualitynumber#
+ 	</select>
+ 	
+</sqlMap>

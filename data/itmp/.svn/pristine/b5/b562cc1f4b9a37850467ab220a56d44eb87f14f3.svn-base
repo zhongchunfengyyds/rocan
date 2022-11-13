@@ -1,0 +1,4 @@
+/* 兼容IE9以下的样式 */
+.mini-textbox-input{
+	margin-top:4px;
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:littlebear -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+    <select id="select_id" parameterMap="parameterMap" resultMap="resultMap"><![CDATA[sql statement]]></select>
+    
+    <select id="getPipePoint" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT * from T_PIPELAYOUT WHERE STATISTICSTYPE LIKE '%'+ #statisticstype# +'%'
+		AND MODEL = #MODEL#
+	</select>
+	
+	<select id="getAllPilePointBySgmodel" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		SELECT * FROM T_PIPELAYOUT WHERE STATISTICSTYPE LIKE '%'+ #value# +'%'
+	</select>
+	
+	<!-- 获取导入手动选取管 -->
+	<select id="getImportManual" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		SELECT * FROM IMPORTMANUAL
+	</select>
+	
+	<!-- 删除导入手动选取管 -->
+	<select id="delImportManual" parameterClass="java.lang.String" resultClass="commonj.sdo.DataObject">
+		DELETE IMPORTMANUAL
+	</select>
+	
+	<!-- 判断当前蒸发器数据是否存在 -->
+	<select id="getPilelayout" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		SELECT MODEL FROM  T_PIPELAYOUT WHERE MODEL = #model#
+	</select>
+	
+	<!-- 删除当前蒸发器基础数据 -->
+	<select id="dellayout" parameterClass="java.util.Map" resultClass="commonj.sdo.DataObject">
+		DELETE  T_PIPELAYOUT WHERE MODEL = #model#
+	</select>
+</sqlMap>

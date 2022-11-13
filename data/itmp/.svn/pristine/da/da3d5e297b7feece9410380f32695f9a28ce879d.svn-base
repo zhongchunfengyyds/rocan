@@ -1,0 +1,3 @@
+﻿.mini-tree-treeLine .mini-tree-indent{
+    background:none !important; 
+}

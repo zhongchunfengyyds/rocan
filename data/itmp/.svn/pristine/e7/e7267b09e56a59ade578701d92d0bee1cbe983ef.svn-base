@@ -1,0 +1,47 @@
+.btn-xs, .btn-group-xs > .btn {
+    font-size: 16px;
+}
+.btn-xs {
+    padding: 6px 12px;
+}
+.loading-tip{
+	margin-top:17px;
+	margin-right:25px;
+}
+.a-upload{
+	margin-top:10px;
+	width:90px;
+	height:35px;
+}
+.a-upload button {
+	font-size:14px;
+}
+.a-upload input {
+	width:69px;
+	height:38px;
+	position: absolute;
+	right: 22px;
+	top: 8px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+	font-size:20px;
+	z-index: 2;
+}
+.folding-menu{
+	background-color:white;
+}
+#flists{
+	overflow:hidden;
+	padding-bottom:0px;
+}
+.folding-menu-row{
+	height:38px;
+	width:100%;
+	background-color:#fafafa;
+	border-top:1px solid rgba(128, 128, 128, 0.43);
+	border-bottom:1px solid rgba(128, 128, 128, 0.43);
+	margin-left:0px;
+	padding-top:8px;
+	color:rgba(128, 128, 128, 0.93);
+}

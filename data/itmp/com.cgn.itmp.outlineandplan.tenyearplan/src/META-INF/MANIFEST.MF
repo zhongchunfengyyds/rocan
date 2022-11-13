@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Require-Bundle: com.cgn.itmp.basecommon,com.cgn.itmp.outlineandplan.ou
+ tline,com.cgn.itmp.outlineandplan.outline.common,com.primeton.eos.ric
+ hweb,com.eos.foundation,com.eos.workflow,org.cgn.components.coframe.f
+ ramework,org.cgn.components.coframe.auth,com.cgn.components.coframe.t
+ ools,com.cgn.components.coframe.taskcenter,com.cgn.components.coframe
+ .tagauth,com.cgn.components.coframe.interfaces
+eos-webCtxPath: tenyearplan
+Bundle-Vendor: rocan
+Bundle-Version: 1.0.0
+Bundle-Name: 十年计划管理
+Bundle-Description: 十年计划管理
+Bundle-SymbolicName: com.cgn.itmp.outlineandplan.tenyearplan
+

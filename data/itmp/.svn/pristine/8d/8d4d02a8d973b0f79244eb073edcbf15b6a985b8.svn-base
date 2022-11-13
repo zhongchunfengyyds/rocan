@@ -1,0 +1,64 @@
+input[type=button],
+input[type=submit],
+input[type=reset]{
+	margin:0; 
+	height:25px; 
+	padding:0 15px; 
+	*padding:0 3px; 
+	border:0; 
+	cursor:pointer;
+	line-height:25px;
+	font-size:12px;
+	transition: background-color 0.5s,box-shadow 0.5s;
+	-moz-transition: background-color 0.5s,box-shadow 0.5s;	/* Firefox 4 */
+	-webkit-transition: background-color 0.5s,box-shadow 0.5s;	/* Safari 和 Chrome */
+	-o-transition: background-color 0.5s,box-shadow 0.5s;	/* Opera */
+}
+input[type=submit]{
+	background-color:#1DB900;
+	border-radius:3px;
+	color:#fff;
+	}
+input[type=submit].ui-noValueBtn{
+	background-color:#1DB900;
+}
+input[type=reset].ui-noValueBtn{
+	background-color:#f00;
+}
+
+input[type=button],
+input[type=reset]{
+	height:25px; 
+	background-color:#333;
+	border-radius:3px;
+	color:#fff;
+	height:25px; 
+}
+input[type=button]:hover,
+input[type=reset]:hover{
+	background-color:#f60;
+	box-shadow:1px 1px 3px #999;
+}
+input[type=submit]:hover{
+	background-color:#f60;
+	box-shadow:1px 1px 3px #999;
+}
+
+
+input.ui-noValueBtn {
+	padding:0;
+	width:25px;
+	height:25px;
+	background-color:#333;
+	border-radius:50%;
+}
+
+input[type=reset].ui-noValueBtn:hover {
+	background-color:#f60;
+}
+input[type=submit].ui-noValueBtn:hover {
+	background-color:#f60;
+}
+
+
+

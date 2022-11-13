@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:sca="http://www.springframework.org/schema/sca" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/sca http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+    <bean id="ZzjgTreeServiceImplBean" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.cgn.itmp.dailyandoverhaul.groupplant.ZzjgTreeService</value>
+            </list>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.groupplant.ZzjgTreeServiceImpl">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="ComprehensiveIndexMgtService" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.cgn.itmp.dailyandoverhaul.groupplant.ComprehensiveIndexMgtService</value>
+            </list>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.groupplant.ComprehensiveIndexMgtServiceImpl">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="GroupplantMgtDao" parent="DefaultBaseTransactionProxy">
+        <property name="proxyInterfaces">
+            <list/>
+        </property>
+        <property name="target">
+            <bean class="com.cgn.itmp.dailyandoverhaul.groupplant.GroupplantMgtDao">
+                <property name="dataSource" ref="DefaultDataSource"/>
+            </bean>
+        </property>
+    </bean>
+</beans>
