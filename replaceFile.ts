@@ -21,12 +21,11 @@ export function replaceFile(file: file): boolean {
         }
     })
     if (inputUploadArr.length) {
-        console.log(inputUploadArr);
-        
         inputUploadArr.forEach((uploadUrl) => {
             //  获取 inputUploadArr 中的 id
             const regId = /id=".*?"/
-            const id = uploadUrl.match(regId)![0].replace(/id="/, '').replace(/"/, '')
+            let ids = uploadUrl.match(regId) || []
+            const id = ids.length > 0 ? ids[0].replace(/id="/, '').replace(/"/, '') : ''
             data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" /> `)
         })
         data = data.replace(/<\/body>/g, `
@@ -47,7 +46,7 @@ export function replaceFile(file: file): boolean {
                                 },
                                 sender:{
                                     id: id
-                                }
+                                },
                                 serverData: JSON.stringify({
                                     ret: {
                                         filePath: data.list[0].uri
