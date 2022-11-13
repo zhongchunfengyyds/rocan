@@ -21,6 +21,8 @@ export function replaceFile(file: file): boolean {
         }
     })
     if (inputUploadArr.length) {
+        console.log(inputUploadArr);
+        
         inputUploadArr.forEach((uploadUrl) => {
             //  获取 inputUploadArr 中的 id
             const regId = /id=".*?"/

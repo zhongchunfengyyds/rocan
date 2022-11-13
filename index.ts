@@ -11,7 +11,6 @@ const fileArr: file[] = []
 // 找出所有指定目录内所有jsp文件
 const findFile = (dir: string) => {
     const files = fs.readdirSync(dir)
-    console.log('.........')
     files.forEach((file) => {
         const filePath = path.join(dir, file)
         const stats = fs.statSync(filePath)
@@ -29,20 +28,8 @@ console.log('系统开始运行')
 
 findFile('./data')
 
-// 修改文件内容
-// const replaceFile = (file: file) => {
-//     const data = fs.readFileSync(file.path, 'utf-8')
-
-//     const newData = data.replace(
-//         /<img src="\/images/g,
-//         '<img src="https://www.abc.com/images',
-//     )
-//     fs.writeFileSync(file.path, newData)
-// }
-
 const handlerArr: file[] = []
 fileArr.forEach((file) => {
-    console.log(file.name + ' loading...');
     if (replaceFile(file)) {
         handlerArr.push(file)
     }
