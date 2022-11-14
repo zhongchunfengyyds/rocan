@@ -6,8 +6,9 @@ export function replaceFile(file: file): boolean {
     let data: string = fs.readFileSync(file.path, 'utf-8')
     const inputReg = /<input.*?\/>/gs
     let inputArr: string[] = data.match(inputReg) || []
-    // 情况一 input 上面带着 uploadUrl
-    const inputUploadArr: string[] = inputArr.filter((input: string) => input.indexOf('basecommon.FileComp.selectFile.biz') > -1) ?? []
+    // 情况一 input 上面带着 uploadUrl basecommon.FileComp.selectFile.biz
+    // 情况二 input 上面带着 uploadUrl coframe/framework/dzqm/uploaddzq
+    const inputUploadArr: string[] = inputArr.filter((input: string) => input.indexOf('basecommon.FileComp.selectFile.biz') > -1 || input.indexOf('coframe/framework/dzqm/uploaddzq') > -1) ?? []
     if (inputUploadArr.length) {
         inputUploadArr.forEach((uploadUrl) => {
             //  获取 inputUploadArr 中的 id
