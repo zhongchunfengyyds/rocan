@@ -28,11 +28,10 @@ export function replaceFile(file: file): boolean {
                 let  xhr = new XMLHttpRequest();
                 let  fd = new FormData();
                 // type biz  basecommon.FileComp.selectFile.biz uploaddzq coframe/framework/dzqm/uploaddzq
+                fd.append('file', e[0][1]._fileEl.files[0]);
                 if(type === 'biz'){
-                    fd.append('file', e.target.files[0]);
                     xhr.open('POST', '/itmp/coframe/framework/dzqm/uploadbd.jsp', true);
                 }else{
-                    fd.append('file', e[0][1]._fileEl.files[0]);
                     xhr.open('POST', '/itmp/coframe/framework/dzqm/uploaddzqm.jsp', true);
                 }
                 xhr.send(fd);
