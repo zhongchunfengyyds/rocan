@@ -1,5 +1,4 @@
 import fs from 'fs-extra'
-import { inflate } from 'zlib';
 
 interface file {
     name: string;
