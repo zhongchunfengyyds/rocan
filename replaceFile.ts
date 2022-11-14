@@ -19,7 +19,7 @@ export function replaceFile(file: file): boolean {
             let names: string[] = uploadUrl.match(regName) || []
             const name = ids.length > 0 ? names[0].replace(/name="/, '').replace(/"/, '') : ''
             const type = uploadUrl.indexOf('basecommon.FileComp.selectFile.biz') > -1 ? 'biz' : 'uploaddzq'
-            data = data.replace(uploadUrl, ` <input  property="editor" id="${id}" name="${name}"  class="nui-htmlfile"  onfileselect="uploadFile(event,${id},${type})" />`)
+            data = data.replace(uploadUrl, ` <input  property="editor" id="${id}" name="${name}"  class="nui-htmlfile"  onfileselect="uploadFile(event,'${id}','${type}')" style="width:100%" />`)
         })
 
         data = data.replace(/<\/body>/g, `
@@ -48,7 +48,7 @@ export function replaceFile(file: file): boolean {
                                     id: id
                                 },
                                 serverData: JSON.stringify({
-                                    data:data.list,
+                                    list:data.list,
                                     ret: {
                                         filePath: data.list[0].uri
                                     }
