@@ -1,6 +1,0 @@
-{checks:
-[
-{ id: "yes", text:"是" },
-{ id: "no", text:"否" }
-]
-}

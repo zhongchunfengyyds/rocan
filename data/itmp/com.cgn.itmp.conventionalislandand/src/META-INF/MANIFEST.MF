@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Require-Bundle: com.primeton.eos.richweb,com.eos.foundation
-Bundle-Vendor: wangyx
-eos-webCtxPath: conventionalislandand
-Bundle-Version: 1.0.0
-Bundle-Name: com.cgn.itmp.conventionalislandand
-Bundle-Description: 常规岛及bop役检部件管理<br>
-Bundle-SymbolicName: com.cgn.itmp.conventionalislandand
-

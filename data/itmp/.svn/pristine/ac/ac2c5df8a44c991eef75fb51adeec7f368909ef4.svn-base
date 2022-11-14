@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Require-Bundle: 
-eos-webCtxPath: coframe
-Bundle-Vendor: PCITLUM
-Bundle-Version: 1.0.0
-Bundle-Name: com.cgn.components.core.ui
-Bundle-Description: 
-Bundle-SymbolicName: com.cgn.components.core.ui
-
