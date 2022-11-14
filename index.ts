@@ -1,6 +1,8 @@
-import fs from 'fs-extra'
+#!/usr/bin/env node
+import fs, { Stats } from 'fs-extra'
 import path from 'path'
 import { replaceFile } from './replaceFile'
+import { file } from './type'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -8,25 +10,20 @@ yargs(hideBin(process.argv))
     .command('build', 'path', (e) => {
         console.log(e);
     }, (argv) => {
-        console.log(argv);
         let handlerPath = argv._[1] as string
-        interface file {
-            name: string;
-            path: string;
-        }
         // 目录内所有jsp文件
         const fileArr: file[] = []
 
         // 找出所有指定目录内所有jsp文件
         const findFile = (dir: string) => {
-            const files = fs.readdirSync(dir)
-            files.forEach((file) => {
+            const files: string[] = fs.readdirSync(dir)
+            files.forEach(file => {
                 const filePath = path.join(dir, file)
-                const stats = fs.statSync(filePath)
+                const stats: Stats = fs.statSync(filePath)
                 if (stats.isFile() && file.endsWith('.jsp')) {
                     fileArr.push({
                         name: file,
-                        path: filePath,
+                        path: filePath
                     })
                 } else if (stats.isDirectory()) {
                     findFile(filePath)
@@ -38,9 +35,9 @@ yargs(hideBin(process.argv))
         findFile(handlerPath)
 
         const handlerArr: file[] = []
-        fileArr.forEach((file) => {
-            if (replaceFile(file)) {
-                handlerArr.push(file)
+        fileArr.forEach((curfile: file) => {
+            if (replaceFile(curfile)) {
+                handlerArr.push(curfile)
             }
         })
         console.log(JSON.stringify(handlerArr));

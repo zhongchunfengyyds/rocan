@@ -1,29 +1,18 @@
+#!/usr/bin/env node
 import fs from 'fs-extra'
+import { file } from './type'
 
-interface file {
-    name: string;
-    path: string;
-}
-interface tags {
-    filename: string;
-    filepath: string;
-}
 export function replaceFile(file: file): boolean {
-    let data = fs.readFileSync(file.path, 'utf-8')
+    let data: string = fs.readFileSync(file.path, 'utf-8')
     const inputReg = /<input.*?\/>/gs
-    let inputArr = data.match(inputReg) || []
+    let inputArr: string[] = data.match(inputReg) || []
     // 情况一 input 上面带着 uploadUrl
-    let inputUploadArr: string[] = []
-    inputArr.forEach((input) => {
-        if (input.indexOf('basecommon.FileComp.selectFile.biz') > -1) {
-            inputUploadArr.push(input)
-        }
-    })
+    const inputUploadArr: string[] = inputArr.filter((input: string) => input.indexOf('basecommon.FileComp.selectFile.biz') > -1) ?? []
     if (inputUploadArr.length) {
         inputUploadArr.forEach((uploadUrl) => {
             //  获取 inputUploadArr 中的 id
             const regId = /id=".*?"/
-            let ids = uploadUrl.match(regId) || []
+            let ids: string[] = uploadUrl.match(regId) || []
             const id = ids.length > 0 ? ids[0].replace(/id="/, '').replace(/"/, '') : ''
             data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" /> `)
         })
