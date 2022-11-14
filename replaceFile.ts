@@ -15,15 +15,26 @@ export function replaceFile(file: file): boolean {
             const regId = /id=".*?"/
             let ids: string[] = uploadUrl.match(regId) || []
             const id = ids.length > 0 ? ids[0].replace(/id="/, '').replace(/"/, '') : ''
-            data = data.replace(uploadUrl, ` <input type="file" id="${id}" name="file" multiple onchange="uploadFile(event,id)" /> `)
+            const regName = /name=".*?"/
+            let names: string[] = uploadUrl.match(regName) || []
+            const name = ids.length > 0 ? names[0].replace(/name="/, '').replace(/"/, '') : ''
+            const type = uploadUrl.indexOf('basecommon.FileComp.selectFile.biz') > -1 ? 'biz' : 'uploaddzq'
+            data = data.replace(uploadUrl, ` <input  property="editor" id="${id}" name="${name}"  class="nui-htmlfile"  onfileselect="uploadFile(event,${id},${type})" />`)
         })
+
         data = data.replace(/<\/body>/g, `
              <script>
-             function uploadFile (e, id) {
+             function uploadFile (e,id,type) {
                 let  xhr = new XMLHttpRequest();
                 let  fd = new FormData();
-                fd.append('file', e.target.files[0]);
-                xhr.open('POST', '/itmp/coframe/framework/dzqm/uploadbd.jsp', true);
+                // type biz  basecommon.FileComp.selectFile.biz uploaddzq coframe/framework/dzqm/uploaddzq
+                if(type === 'biz'){
+                    fd.append('file', e.target.files[0]);
+                    xhr.open('POST', '/itmp/coframe/framework/dzqm/uploadbd.jsp', true);
+                }else{
+                    fd.append('file', e[0][1]._fileEl.files[0]);
+                    xhr.open('POST', '/itmp/coframe/framework/dzqm/uploaddzqm.jsp', true);
+                }
                 xhr.send(fd);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -37,6 +48,7 @@ export function replaceFile(file: file): boolean {
                                     id: id
                                 },
                                 serverData: JSON.stringify({
+                                    data:data.list,
                                     ret: {
                                         filePath: data.list[0].uri
                                     }
