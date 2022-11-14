@@ -5,7 +5,11 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
 yargs(hideBin(process.argv))
-    .command('show', '', () => { }, (argv) => {
+    .command('show', 'path', (e) => {
+        console.log(e);
+    }, (argv) => {
+        console.log(argv);
+        let handlerPath = argv._[1] as string
         interface file {
             name: string;
             path: string;
@@ -31,7 +35,7 @@ yargs(hideBin(process.argv))
         }
         console.log('系统开始运行')
 
-        findFile('./data')
+        findFile(handlerPath)
 
         const handlerArr: file[] = []
         fileArr.forEach((file) => {
